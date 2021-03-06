@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>HomiePages.Domain</RootNamespace>
+    <AssemblyName>HomiePages.Domain</AssemblyName>
+  </PropertyGroup>
+
+</Project>
