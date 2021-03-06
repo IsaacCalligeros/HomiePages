@@ -16,6 +16,8 @@ using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using HomiePages.Domain.RepositoryInterfaces;
+using HomiePages.Infrastructure.Repository;
 
 namespace HomiePages.WebUI
 {

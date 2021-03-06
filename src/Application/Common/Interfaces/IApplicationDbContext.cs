@@ -11,6 +11,13 @@ namespace HomiePages.Application.Common.Interfaces
 
         DbSet<TodoItem> TodoItems { get; set; }
 
+        DbSet<Weather> Weather { get; set; }
+        DbSet<Equity> Equities { get; set; }
+        DbSet<News> News { get; set; }
+        DbSet<BaseContainer> Containers { get; set; }
+        DbSet<Portfolio> Portfolios { get; set; }
+        DbSet<Layout> Layouts { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

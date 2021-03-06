@@ -6,6 +6,7 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -32,8 +33,13 @@ namespace HomiePages.Infrastructure.Persistence
         }
 
         public DbSet<TodoItem> TodoItems { get; set; }
-
         public DbSet<TodoList> TodoLists { get; set; }
+        public DbSet<Weather> Weather { get; set; }
+        public DbSet<Equity> Equities { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<BaseContainer> Containers { get; set; }
+        public DbSet<Portfolio> Portfolios { get; set; }
+        public DbSet<Layout> Layouts { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -62,6 +68,8 @@ namespace HomiePages.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //Debugger.Launch();
+
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);

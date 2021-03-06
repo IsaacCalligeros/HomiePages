@@ -1,7 +1,9 @@
 ﻿using HomiePages.Application.Common.Interfaces;
+using HomiePages.Domain.RepositoryInterfaces;
 using HomiePages.Infrastructure.Files;
 using HomiePages.Infrastructure.Identity;
 using HomiePages.Infrastructure.Persistence;
+using HomiePages.Infrastructure.Repository;
 using HomiePages.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -23,12 +25,13 @@ namespace HomiePages.Infrastructure
             else
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(
-                        configuration.GetConnectionString("DefaultConnection"),
-                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+                    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             }
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
+
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
             services.AddScoped<IDomainEventService, DomainEventService>();
 
