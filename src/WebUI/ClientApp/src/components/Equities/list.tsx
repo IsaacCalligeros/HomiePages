@@ -13,9 +13,7 @@ import {
   ModalFooter,
   ModalHeader,
   Button,
-  InputGroup,
   Input,
-  InputGroupAddon,
 } from "reactstrap";
 import { Tab, Tabs } from "@material-ui/core";
 import { defaultEquity } from "../../models/modelDefaults";
@@ -61,6 +59,12 @@ const EquityList = (props: EquityListProps) => {
 
   const [selectedCompany, setSelectedCompany] = useState<EquityModel>(defaultEquity);
 
+  const mapToEquity = (company: Company) : EquityModel => {
+    var equity = defaultEquity;
+    equity.ticker = company.ticker;
+    return equity;
+  }
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
@@ -102,7 +106,7 @@ const EquityList = (props: EquityListProps) => {
             </tr>
           </thead>
           <tbody>
-            {props.store.portfolioCompanies.map((e, idx) => (
+            {props.store.portfolio.equities.map((e, idx) => (
               <tr key={`equity-${idx}`}>
                 <td>{e.ticker}</td>
                 <td>{e.numberHeld}</td>
@@ -145,9 +149,7 @@ const EquityList = (props: EquityListProps) => {
                 <td>
                   <Button
                     onClick={() => {
-                      const equity: EquityModel = defaultEquity;
-
-                      setSelectedCompany(equity);
+                      setSelectedCompany(mapToEquity(company));
                       setModalOpen(!modalOpen);
                     }}
                   >

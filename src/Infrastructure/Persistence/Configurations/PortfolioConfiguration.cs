@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HomiePages.Infrastructure.Persistence.Configurations
 {
-    public class PortfolioConfigration : IEntityTypeConfiguration<BaseContainer>
+    public class PortfolioConfigration : IEntityTypeConfiguration<Portfolio>
     {
-        public void Configure(EntityTypeBuilder<BaseContainer> builder)
+        public void Configure(EntityTypeBuilder<Portfolio> builder)
         {
-            builder.HasOne(b => b.Layout);
+            builder.HasMany(e => e.Equities);
         }
     }
 }

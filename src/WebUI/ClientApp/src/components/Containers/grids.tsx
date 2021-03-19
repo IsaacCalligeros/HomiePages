@@ -7,11 +7,11 @@ import { v4 as uuidv4 } from "uuid";
 import { News } from "../News/News";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { ComponentType } from "../../models/models";
+import { BaseContainer, ComponentType } from "../../models/models";
 import { ContainersStore } from "../../store/containersStore";
 import { observer } from "mobx-react-lite";
-import { ComponentLayout, ComponentLayouts } from "./types";
 import { PortfolioComponent } from "../Portfolio/Portfolio";
+import { containersStoreContext } from "../../store/containerStoreContext";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -20,7 +20,7 @@ interface DragFromOutsideLayoutProps {
 }
 
 const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
-  const layouts: ComponentLayouts = {
+  const layouts = {
     lg: props.containersStore.containers,
   };
 
@@ -45,8 +45,15 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
 
   const onDrop = (layout: any, layoutItem: Layout, event: any) => {
     layoutItem.i = uuidv4();
-    const newContainer: ComponentLayout = {
+    layoutItem.w = 3;
+    layoutItem.h = 3;
+    
+    console.dir(layoutItem);
+    const newContainer: BaseContainer = {
       layout: layoutItem,
+      containerId: 0,
+      userId: '',
+      layoutId: '',
       componentType: ComponentType.Weather,
     };
     props.containersStore.addContainer(newContainer);
@@ -57,6 +64,10 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
   const onRemoveItem = (i: any) => {
     props.containersStore.deleteContainer(i);
   };
+
+  // const containerStoreRef = React.useRef<ContainersStore>(
+  //   props.containersStore
+  // );
 
   const generateDOM = () => {
     return _.map(layouts.lg, (l) => {
@@ -74,11 +85,11 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
-          {l.componentType == ComponentType.Weather && <Weather></Weather>}
-          {l.componentType == ComponentType.News && <News></News>}
-          {l.componentType == ComponentType.Portfolio && (
-            <PortfolioComponent></PortfolioComponent>
-          )}
+            {l.componentType == ComponentType.Weather && <Weather></Weather>}
+            {l.componentType == ComponentType.News && <News></News>}
+            {l.componentType == ComponentType.Portfolio && (
+              <PortfolioComponent containerId={l.containerId}></PortfolioComponent>
+            )}
         </div>
       );
     });
@@ -89,8 +100,8 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
       <ResponsiveReactGridLayout
         {...defaultProps}
         onBreakpointChange={() => onBreakpointChange}
-        onResizeStop={(i) => props.containersStore.updateLayouts(i)}
-        onDragStop={(i) => props.containersStore.updateLayouts(i)}
+        onResizeStop={(layouts, layout) => props.containersStore.updateLayout(layout)}
+        onDragStop={(layouts, layout) => props.containersStore.updateLayout(layout)}
         onDrop={onDrop}
         draggableHandle=".drag-handle"
         // WidthProvider option
@@ -100,7 +111,9 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
         preventCollision={!compactType}
         isDroppable={true}
       >
-        {generateDOM()}
+        {/* <containersStoreContext.Provider value={containerStoreRef}> */}
+          {generateDOM()}
+        {/* </containersStoreContext.Provider> */}
       </ResponsiveReactGridLayout>
     </div>
   );

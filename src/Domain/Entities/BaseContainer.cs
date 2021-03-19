@@ -7,8 +7,8 @@ namespace HomiePages.Domain.Entities
     public class BaseContainer
     {
         [Key]
-        public int ContainerId { get; set; }
-        public int UserId { get; set; }
+        public long ContainerId { get; set; }
+        public string UserId { get; set; }
 
         [ForeignKey("Layout")]
         public string LayoutId { get; set; }

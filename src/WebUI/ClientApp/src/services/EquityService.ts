@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import axiosInstance from "../axiosInstance";
-import { Company, Equity, Quote } from "../models/models";
+import { Company, Equity, EquityModel, Quote } from "../models/models";
 
 export class EquityService {
   getCompanies = (searchTerm: string): Promise<Company[]> => {
@@ -37,13 +37,9 @@ export class EquityService {
     });
   };
 
-  AddEquity = async (equity: Equity) => {
-    const postData = {
-      equity: equity
-  };
-
+  AddEquity = async (equity: EquityModel) => {
     const res : boolean = await (await axiosInstance
-      .post("api/Equity/AddEquity", postData)).data;
+      .post("api/Equity/AddEquity", equity)).data;
     return res;
   }
 };

@@ -1,15 +1,18 @@
 ﻿using HomiePages.Application.Common.Interfaces;
-using HomiePages.Domain.RepositoryInterfaces;
-using HomiePages.Infrastructure.Files;
+using HomiePages.Application.RepositoryInterfaces;
+using HomiePages.Application.ServiceInterfaces;
 using HomiePages.Infrastructure.Identity;
 using HomiePages.Infrastructure.Persistence;
 using HomiePages.Infrastructure.Repository;
 using HomiePages.Infrastructure.Services;
+using HomiePages.Infrastructure.Services.EntityServices;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Linq;
 
 namespace HomiePages.Infrastructure
 {
@@ -29,6 +32,10 @@ namespace HomiePages.Infrastructure
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
             }
 
+            services.AddScoped<IContainerService, ContainerService>();
+            services.AddScoped<IEquityService, EquityService>();
+            services.AddScoped<IPortfolioService, PortfolioService>();
+
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
@@ -45,7 +52,6 @@ namespace HomiePages.Infrastructure
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
-            services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

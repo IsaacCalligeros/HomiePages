@@ -14,10 +14,7 @@ import "../../CSS/NavMenu.scss";
 import { SideBar } from "./SideBar";
 import { ContainersStore } from "../../store/containersStore";
 
-interface NavMenuProps {
-  containersStore: ContainersStore;
-}
-const NavMenu = (props: NavMenuProps) => {
+const NavMenu = () => {
     const [collapsed, setCollapsed] = useState(true);
     const [open, setOpen] = useState(false);
 
@@ -26,14 +23,13 @@ const NavMenu = (props: NavMenuProps) => {
     }
 
     return (
-      <header>        
+      <header>
         <Navbar
           className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3"
           light
         >
           <Container>
-          <SideBar containersStore={props.containersStore}></SideBar>
-          
+          <div id='menu-portal-entry'></div>          
             <NavbarBrand tag={Link} to="/">
             HomiePages
             </NavbarBrand>

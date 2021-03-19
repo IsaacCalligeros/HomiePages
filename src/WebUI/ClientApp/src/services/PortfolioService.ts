@@ -10,11 +10,11 @@ export class PortfolioService {
     return res;
   };
 
-  FindOrCreate = async () => {
+  FindOrCreate = async (containerId: number) => {
     const res: PortfolioModel = await (
-      await axiosInstance.put("api/Portfolio/FindOrCreate")
+      await axiosInstance.put(`api/Portfolio/FindOrCreate/${containerId}`)
     ).data;
-    
+
     return res;
   };
 
@@ -23,18 +23,5 @@ export class PortfolioService {
       await axiosInstance.delete(`api/Portfolio/DeletePortfolio${portfolio.id}`)
     ).data;
     return res;
-  };
-
-  FindOrCreatePromise = (): Promise<PortfolioModel> => {
-    return new Promise<PortfolioModel>((resolve, reject) => {
-      axiosInstance
-      .put("api/Portfolio/FindOrCreate")
-        .then((response: AxiosResponse<PortfolioModel>) => {
-          resolve(response.data);
-        })
-        .catch(() => {
-          reject();
-        });
-    });
   };
 }

@@ -1,6 +1,8 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System.Security.Claims;
 
 namespace HomiePages.WebUI.Controllers
 {
@@ -11,5 +13,7 @@ namespace HomiePages.WebUI.Controllers
         private ISender _mediator;
 
         protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetService<ISender>();
+
+        protected string UserId => HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 }

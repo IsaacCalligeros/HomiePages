@@ -2,25 +2,24 @@ import _ from "lodash";
 import { observable, action } from "mobx";
 import { Layout } from "react-grid-layout";
 import axiosInstance from "../axiosInstance";
-import { ComponentLayout } from "../components/Containers/types";
+import { BaseContainer } from "../models/models";
 import { ContainersService } from "./containersService";
 
 export class ContainersStore {
-
   private readonly containersService: ContainersService;
 
   constructor() {
     this.containersService = new ContainersService();
     this.getContainers();
   }
-  
-  @observable containers: ComponentLayout[] = [];
 
-  @action setContainers = (containers: ComponentLayout[]) => {
+  @observable containers: BaseContainer[] = [];
+
+  @action setContainers = (containers: BaseContainer[]) => {
     this.containers = containers;
   };
 
-  @action addContainer = (container: ComponentLayout) => {
+  @action addContainer = (container: BaseContainer) => {
     this.containers.push(container);
   };
 
@@ -33,7 +32,7 @@ export class ContainersStore {
     }
   };
 
-  @action updateContainers = async (containers: ComponentLayout[]) => {
+  @action updateContainers = async (containers: BaseContainer[]) => {
     var res = await this.containersService.UpdateContainers(containers);
     if (res) {
       this.containers = containers;
@@ -44,11 +43,9 @@ export class ContainersStore {
     this.containers = await this.containersService.GetContainers();
   };
 
-  @action saveContainer = async (newContainer: ComponentLayout) => {
+  @action saveContainer = async (newContainer: BaseContainer) => {
     var res = await this.containersService.SaveContainer(newContainer);
-    if (res) {
-      this.addContainer(newContainer);
-    }
+    this.addContainer(newContainer);
   };
 
   @action updateLayouts = (layouts: Layout[]) => {
@@ -57,5 +54,10 @@ export class ContainersStore {
         (c.layout = layouts[layouts.findIndex((lo) => lo.i === c.layout.i)])
     );
     this.updateContainers(this.containers);
+  };
+
+  @action updateLayout = (layout: Layout) => {
+    var container = this.containers.filter(c => c.layoutId === layout.i)[0];
+    this.containersService.UpdateContainer(container);
   };
 }

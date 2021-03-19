@@ -1,4 +1,4 @@
-﻿using HomiePages.Domain.RepositoryInterfaces;
+﻿using HomiePages.Application.RepositoryInterfaces;
 using HomiePages.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -40,7 +40,7 @@ namespace HomiePages.Infrastructure.Repository
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            return DataContext.Set<T>().Where(expression).AsNoTracking();
+            return DataContext.Set<T>().Where(expression);
         }
 
         public void Create(T entity)

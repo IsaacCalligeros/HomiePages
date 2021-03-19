@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using HomiePages.Domain.RepositoryInterfaces;
 using HomiePages.Domain.Entities;
 using HomiePages.Infrastructure.Persistence;
+using HomiePages.Application.RepositoryInterfaces;
 
 namespace HomiePages.Infrastructure.Repository
 {
@@ -16,7 +16,7 @@ namespace HomiePages.Infrastructure.Repository
             _context = context;
         }
 
-        public IEnumerable<BaseContainer> GetUserContainers(int userId)
+        public IEnumerable<BaseContainer> GetUserContainers(string userId)
         {
             return _context.Containers
                 .Include(u => u.Layout)

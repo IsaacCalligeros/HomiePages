@@ -1,0 +1,56 @@
+import axios from "axios";
+import authService, { AuthenticationResultStatus } from "./components/api-authorization/AuthorizeService";
+import createAuthRefreshInterceptor from 'axios-auth-refresh';
+
+const location = window.location.toString();
+const publicUrl = new URL(process.env.PUBLIC_URL, location);
+const instance = axios.create({
+  baseURL: publicUrl.origin,
+});
+
+
+const login = async () => {
+  const result = await authService.signIn();
+  switch (result.status) {
+      case AuthenticationResultStatus.Success:
+
+          break;
+      case AuthenticationResultStatus.Fail:
+          //Navigate to login
+          break;
+      default:
+          throw new Error(`Invalid status result ${result.status}.`);
+  }
+}
+
+// const refreshAuthLogic = (failedRequest: any) => login().then(tokenRefreshResponse => {
+//     return Promise.resolve();
+// });
+
+// createAuthRefreshInterceptor(axios, refreshAuthLogic);
+
+instance.interceptors.request.use(
+  async (config) => {
+    const token = await authService.getAccessToken();
+    config.headers = {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+      ContentType: "application/json",
+    };
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  }
+);
+
+instance.interceptors.response.use(response => {
+  return response;
+}, error => {
+ if (error.response.status === 401) {
+   console.dir("refreshin");
+  login();
+ }
+});
+
+export default instance;

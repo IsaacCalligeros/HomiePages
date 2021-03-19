@@ -15,18 +15,17 @@ import { News } from "./components/News/News";
 import { observer } from "mobx-react-lite";
 
 const App: React.FC = observer(() => {
-    const containersStore = new ContainersStore();
-
     const HomeComponent = () => {
+      const containersStore = new ContainersStore();
       return <Home containersStore={containersStore} />;
     };
 
     return (
       <div>
-        <NavMenu containersStore={containersStore}></NavMenu>
+        <NavMenu></NavMenu>
         <Container maxWidth="xl" className="component-container">
           <Switch>
-            <AuthorizeRoute exact path="/" component={HomeComponent} />
+            <AuthorizeRoute exact path="/home" component={HomeComponent} />
             <Route
               path={ApplicationPaths.ApiAuthorizationPrefix}
               component={ApiAuthorizationRoutes}

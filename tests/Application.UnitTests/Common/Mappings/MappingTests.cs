@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using HomiePages.Application.Common.Mappings;
-using HomiePages.Application.TodoLists.Queries.GetTodos;
 using HomiePages.Domain.Entities;
 using NUnit.Framework;
 using System;
@@ -27,16 +26,6 @@ namespace HomiePages.Application.UnitTests.Common.Mappings
         public void ShouldHaveValidConfiguration()
         {
             _configuration.AssertConfigurationIsValid();
-        }
-        
-        [Test]
-        [TestCase(typeof(TodoList), typeof(TodoListDto))]
-        [TestCase(typeof(TodoItem), typeof(TodoItemDto))]
-        public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
-        {
-            var instance = GetInstanceOf(source);
-
-            _mapper.Map(instance, source, destination);
         }
 
         private object GetInstanceOf(Type type)

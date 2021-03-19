@@ -7,10 +7,6 @@ namespace HomiePages.Application.Common.Interfaces
 {
     public interface IApplicationDbContext
     {
-        DbSet<TodoList> TodoLists { get; set; }
-
-        DbSet<TodoItem> TodoItems { get; set; }
-
         DbSet<Weather> Weather { get; set; }
         DbSet<Equity> Equities { get; set; }
         DbSet<News> News { get; set; }

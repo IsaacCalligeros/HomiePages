@@ -16,8 +16,8 @@ using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using HomiePages.Domain.RepositoryInterfaces;
-using HomiePages.Infrastructure.Repository;
+using HomiePages.Infrastructure.Helpers;
+using System;
 
 namespace HomiePages.WebUI
 {
@@ -39,6 +39,20 @@ namespace HomiePages.WebUI
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
+
+            services.AddHttpClient(HttpClientHelper.Weather, client => {
+                client.BaseAddress = new Uri("https://api.openweathermap.org/");
+            });
+
+            services.AddHttpClient(HttpClientHelper.Equity, client => {
+                client.BaseAddress = new Uri("https://finnhub.io/api/v1/");
+                client.DefaultRequestHeaders.Add("X-Finnhub-Token", Configuration["finnHubKey"]);
+            });
+
+            services.AddHttpClient(HttpClientHelper.News, client => {
+                //Why do they make it a query paramater...
+                client.BaseAddress = new Uri("https://newsapi.org/v2/");
+            });
 
             services.AddHttpContextAccessor();
 

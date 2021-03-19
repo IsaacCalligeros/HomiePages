@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Portfolio } from "../../models/models";
-import { PortfolioService } from "../../services/PortfolioService";
+import React from "react";
+import { useContainerStore } from "../../store/hooks/containersStoreHook";
 import { EquityList } from "../Equities/list";
 import { PortfolioStore } from "./portfolioStore";
 
-const PortfolioComponent = () => {
-  const portfolioService = new PortfolioService();
-  const [Portfolio, SetPortfolio] = useState<null | Portfolio>(null);
+interface PortfolioProps {
+  containerId: number;
+}
 
-    const portfolioStore = new PortfolioStore();
+const PortfolioComponent = (props: PortfolioProps) => {
+  const portfolioStore = new PortfolioStore(props.containerId);
 
   return (
     <EquityList

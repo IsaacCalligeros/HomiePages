@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using HomiePages.Domain.RepositoryInterfaces;
 using HomiePages.Infrastructure.Persistence;
+using HomiePages.Application.RepositoryInterfaces;
 
 namespace HomiePages.Infrastructure.Repository
 {

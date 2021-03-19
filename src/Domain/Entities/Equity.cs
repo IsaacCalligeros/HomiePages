@@ -2,10 +2,11 @@
 using static HomiePages.Domain.Enums.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HomiePages.Domain.Common;
 
 namespace HomiePages.Domain.Entities
 {
-    public class Equity
+    public class Equity : AuditableEntity
     {
         [Key]
         public int Id { get; set; }

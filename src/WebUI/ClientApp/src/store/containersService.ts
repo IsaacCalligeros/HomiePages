@@ -1,5 +1,5 @@
 import axiosInstance from "../axiosInstance";
-import { ComponentLayout } from "../components/Containers/types";
+import { BaseContainer } from "../models/models";
 
 export class ContainersService {
 
@@ -8,18 +8,23 @@ export class ContainersService {
     return res;
   };
 
-  UpdateContainers = async (containers: ComponentLayout[]) => {
+  UpdateContainers = async (containers: BaseContainer[]) => {
     const res : boolean = await axiosInstance.post("api/Containers/UpdateContainers", containers);
     return res;
   }
 
-  GetContainers = async () => {
-    const res : ComponentLayout[] = await (await axiosInstance.get("api/Containers/getContainers")).data;
+  UpdateContainer = async (container: BaseContainer) => {
+    const res : boolean = await axiosInstance.post("api/Containers/UpdateContainer", container);
     return res;
   }
 
-  SaveContainer = async (newContainer: ComponentLayout) => {
-    const res : boolean = await (await axiosInstance
+  GetContainers = async () => {
+    const res : BaseContainer[] = await (await axiosInstance.get("api/Containers/getContainers")).data;
+    return res;
+  }
+
+  SaveContainer = async (newContainer: BaseContainer) => {
+    const res : BaseContainer = await (await axiosInstance
       .post("api/Containers/SaveContainer", newContainer)).data;
     return res;
   }

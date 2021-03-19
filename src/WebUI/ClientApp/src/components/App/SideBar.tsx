@@ -3,9 +3,8 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
-import { ComponentLayout } from "../Containers/types";
 import { v4 as uuidv4 } from "uuid";
-import { ComponentType } from "../../models/models";
+import { BaseContainer, ComponentType } from "../../models/models";
 import { ContainersStore } from "../../store/containersStore";
 
 const useStyles = makeStyles({
@@ -51,15 +50,20 @@ const SideBar = (props: sideBarProps) => {
   };
 
   const addControl = (componentType: ComponentType) => {
-    const newContainer: ComponentLayout = {
+    const layoutId = uuidv4();
+    const newContainer: BaseContainer = {
       layout: {
-        i: uuidv4(),
+        i: layoutId,
         w: 2,
         h: 2,
         x: 0,
         y: 0,
       },
       componentType: componentType,
+      userId: '',
+      containerId: 0,
+      layoutId: layoutId,
+      
     };
     const res = props.containersStore.saveContainer(newContainer);
   };

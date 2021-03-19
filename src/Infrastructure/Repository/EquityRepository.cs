@@ -1,5 +1,5 @@
-﻿using HomiePages.Domain.Entities;
-using HomiePages.Domain.RepositoryInterfaces;
+﻿using HomiePages.Application.RepositoryInterfaces;
+using HomiePages.Domain.Entities;
 using HomiePages.Infrastructure.Persistence;
 using System;
 using System.Collections.Generic;

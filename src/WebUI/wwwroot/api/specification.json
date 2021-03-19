@@ -6,6 +6,444 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Containers/SaveContainer": {
+      "post": {
+        "tags": [
+          "Containers"
+        ],
+        "operationId": "Containers_SaveContainer",
+        "requestBody": {
+          "x-name": "container",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BaseContainer"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Containers/Delete/{layoutId}": {
+      "delete": {
+        "tags": [
+          "Containers"
+        ],
+        "operationId": "Containers_DeleteContainer",
+        "parameters": [
+          {
+            "name": "layoutId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Containers/UpdateContainers": {
+      "post": {
+        "tags": [
+          "Containers"
+        ],
+        "operationId": "Containers_updateContainers",
+        "requestBody": {
+          "x-name": "containers",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/BaseContainer"
+                }
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Containers/GetContainers": {
+      "get": {
+        "tags": [
+          "Containers"
+        ],
+        "operationId": "Containers_GetContainers",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BaseContainer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Equity/AddEquity": {
+      "post": {
+        "tags": [
+          "Equity"
+        ],
+        "operationId": "Equity_AddEquity",
+        "requestBody": {
+          "x-name": "equity",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Equity"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Equity/DeleteEquity": {
+      "delete": {
+        "tags": [
+          "Equity"
+        ],
+        "operationId": "Equity_DeleteEquity",
+        "parameters": [
+          {
+            "name": "equityId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Equity/GetAsxCompanies": {
+      "get": {
+        "tags": [
+          "Equity"
+        ],
+        "operationId": "Equity_GetAsxCompanies",
+        "parameters": [
+          {
+            "name": "searchTerm",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Company"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Equity/GetCompany": {
+      "get": {
+        "tags": [
+          "Equity"
+        ],
+        "operationId": "Equity_GetCompany",
+        "parameters": [
+          {
+            "name": "companyTicker",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "exchangeCode",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "-AT",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quote"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/News/GetNews": {
+      "get": {
+        "tags": [
+          "News"
+        ],
+        "operationId": "News_GetNewsApi",
+        "parameters": [
+          {
+            "name": "searchTerm",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Portfolio/FindOrCreate": {
+      "put": {
+        "tags": [
+          "Portfolio"
+        ],
+        "operationId": "Portfolio_FindOrCreate",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortfolioModel"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Portfolio/CreatePortfolio": {
+      "post": {
+        "tags": [
+          "Portfolio"
+        ],
+        "operationId": "Portfolio_CreatePortfolio",
+        "requestBody": {
+          "x-name": "portfolio",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Portfolio"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Portfolio/DeletePortfolio": {
+      "delete": {
+        "tags": [
+          "Portfolio"
+        ],
+        "operationId": "Portfolio_DeletePortfolio",
+        "parameters": [
+          {
+            "name": "portfolioId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -414,6 +852,42 @@
         ]
       }
     },
+    "/api/Weather": {
+      "get": {
+        "tags": [
+          "Weather"
+        ],
+        "operationId": "Weather_GetWeather",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherAndForecast"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/WeatherForecast": {
       "get": {
         "tags": [
@@ -440,6 +914,582 @@
   },
   "components": {
     "schemas": {
+      "BaseContainer": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "containerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "layoutId": {
+            "type": "string",
+            "nullable": true
+          },
+          "layout": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Layout"
+              }
+            ]
+          },
+          "componentType": {
+            "$ref": "#/components/schemas/ComponentType"
+          }
+        }
+      },
+      "Layout": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "i": {
+            "type": "string",
+            "nullable": true
+          },
+          "h": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "w": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "x": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "y": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ComponentType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "News",
+          "Weather",
+          "Portfolio"
+        ],
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      },
+      "Equity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ticker": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/EquityType"
+          },
+          "numberHeld": {
+            "type": "number",
+            "format": "float"
+          },
+          "purchasePrice": {
+            "type": "number",
+            "format": "float"
+          },
+          "portfolioId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "EquityType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Stock",
+          "Cryptocurrency"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "Company": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ticker": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "listingDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "industry": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Quote": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "symbol": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "primaryExchange": {
+            "type": "string",
+            "nullable": true
+          },
+          "calculationPrice": {
+            "type": "string",
+            "nullable": true
+          },
+          "open": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "openTime": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "openSource": {
+            "type": "string",
+            "nullable": true
+          },
+          "close": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "closeTime": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "closeSource": {
+            "type": "string",
+            "nullable": true
+          },
+          "high": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "highTime": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "highSource": {
+            "type": "string",
+            "nullable": true
+          },
+          "low": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "lowTime": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "lowSource": {
+            "type": "string",
+            "nullable": true
+          },
+          "latestPrice": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "latestSource": {
+            "type": "string",
+            "nullable": true
+          },
+          "latestTime": {
+            "type": "string",
+            "nullable": true
+          },
+          "latestUpdate": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "latestVolume": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "iexRealtimePrice": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "iexRealtimeSize": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "iexLastUpdated": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "delayedPrice": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "delayedPriceTime": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "oddLotDelayedPrice": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "oddLotDelayedPriceTime": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "extendedPrice": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "extendedChange": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "extendedChangePercent": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "extendedPriceTime": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "previousClose": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "previousVolume": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "change": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "changePercent": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "volume": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "iexMarketPercent": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "iexVolume": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "avgTotalVolume": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "iexBidPrice": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "iexBidSize": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "iexAskPrice": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "iexAskSize": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "iexOpen": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "iexOpenTime": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "iexClose": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "iexCloseTime": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "marketCap": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "peRatio": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "week52High": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "week52Low": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "ytdChange": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "lastTradeTime": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "isUSMarketOpen": {
+            "type": "boolean"
+          },
+          "sector": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "NewsDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "totalResults": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "articles": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/Article"
+            }
+          }
+        }
+      },
+      "Article": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Source"
+              }
+            ]
+          },
+          "author": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "urlToImage": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "publishedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Source": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "PortfolioModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "equities": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/EquityModel"
+            }
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "EquityModel": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ticker": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/EquityType"
+          },
+          "numberHeld": {
+            "type": "number",
+            "format": "float"
+          },
+          "purchasePrice": {
+            "type": "number",
+            "format": "float"
+          },
+          "portfolioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "currentPrice": {
+            "type": "number",
+            "format": "float"
+          },
+          "change": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "Portfolio": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "containerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "container": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/BaseContainer"
+              }
+            ]
+          },
+          "equities": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/Equity"
+            }
+          }
+        }
+      },
       "PaginatedListOfTodoItemDto": {
         "type": "object",
         "additionalProperties": false,
@@ -648,6 +1698,487 @@
           "title": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "WeatherAndForecast": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "currentWeather": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CurrentWeather"
+              }
+            ]
+          },
+          "weather": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/WeatherDto"
+              }
+            ]
+          }
+        }
+      },
+      "CurrentWeather": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "coord": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Coord"
+              }
+            ]
+          },
+          "weather": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/WeatherData"
+            }
+          },
+          "base": {
+            "type": "string",
+            "nullable": true
+          },
+          "dayTempDetail": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/DayTempDetails"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "wind": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Wind"
+              }
+            ]
+          },
+          "clouds": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Clouds"
+              }
+            ]
+          },
+          "dt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "dayDetail": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/DayDetails"
+              }
+            ]
+          },
+          "timezone": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "cod": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "Coord": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "lon": {
+            "type": "number",
+            "format": "double"
+          },
+          "lat": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "WeatherData": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "main": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "DayTempDetails": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "temp": {
+            "type": "number",
+            "format": "double"
+          },
+          "feelsLike": {
+            "type": "number",
+            "format": "double"
+          },
+          "tempMin": {
+            "type": "number",
+            "format": "double"
+          },
+          "tempMax": {
+            "type": "number",
+            "format": "double"
+          },
+          "pressure": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "humidity": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "Wind": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "speed": {
+            "type": "number",
+            "format": "double"
+          },
+          "deg": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "gust": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "Clouds": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "all": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "DayDetails": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "sunrise": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sunriseDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sunset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sunsetDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "WeatherDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "cod": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "message": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "cnt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "list": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/Data"
+            }
+          },
+          "city": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CityDetails"
+              }
+            ]
+          }
+        }
+      },
+      "Data": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "dt": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "main": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/MainClass"
+              }
+            ]
+          },
+          "weather": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/WeatherElement"
+            }
+          },
+          "clouds": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Clouds"
+              }
+            ]
+          },
+          "wind": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Wind"
+              }
+            ]
+          },
+          "visibility": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pop": {
+            "type": "number",
+            "format": "double"
+          },
+          "sys": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Sys"
+              }
+            ]
+          },
+          "dtTxt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "rain": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Rain"
+              }
+            ]
+          }
+        }
+      },
+      "MainClass": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "temp": {
+            "type": "number",
+            "format": "double"
+          },
+          "feelsLike": {
+            "type": "number",
+            "format": "double"
+          },
+          "tempMin": {
+            "type": "number",
+            "format": "double"
+          },
+          "tempMax": {
+            "type": "number",
+            "format": "double"
+          },
+          "pressure": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "seaLevel": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "grndLevel": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "humidity": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tempKf": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "WeatherElement": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "main": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "icon": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Sys": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "pod": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "Rain": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "the3H": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "CityDetails": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "coord": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Coord2"
+              }
+            ]
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "population": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "timezone": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sunrise": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sunriseDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sunset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sunsetDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Coord2": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "lat": {
+            "type": "number",
+            "format": "double"
+          },
+          "lon": {
+            "type": "number",
+            "format": "double"
           }
         }
       },

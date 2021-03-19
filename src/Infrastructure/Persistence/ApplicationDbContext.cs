@@ -32,8 +32,6 @@ namespace HomiePages.Infrastructure.Persistence
             _dateTime = dateTime;
         }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
-        public DbSet<TodoList> TodoLists { get; set; }
         public DbSet<Weather> Weather { get; set; }
         public DbSet<Equity> Equities { get; set; }
         public DbSet<News> News { get; set; }
@@ -67,9 +65,7 @@ namespace HomiePages.Infrastructure.Persistence
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
-        {
-            //Debugger.Launch();
-
+         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);
