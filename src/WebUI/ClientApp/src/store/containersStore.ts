@@ -58,6 +58,7 @@ export class ContainersStore {
 
   @action updateLayout = (layout: Layout) => {
     var container = this.containers.filter(c => c.layoutId === layout.i)[0];
+    container.layout = layout;
     this.containersService.UpdateContainer(container);
   };
 }

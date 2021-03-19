@@ -45,10 +45,9 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
 
   const onDrop = (layout: any, layoutItem: Layout, event: any) => {
     layoutItem.i = uuidv4();
+    //Set up proper drop system with default sizes on controls.
     layoutItem.w = 3;
     layoutItem.h = 3;
-    
-    console.dir(layoutItem);
     const newContainer: BaseContainer = {
       layout: layoutItem,
       containerId: 0,
@@ -56,8 +55,6 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
       layoutId: '',
       componentType: ComponentType.Weather,
     };
-    props.containersStore.addContainer(newContainer);
-
     props.containersStore.saveContainer(newContainer);
   };
 
@@ -100,8 +97,12 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
       <ResponsiveReactGridLayout
         {...defaultProps}
         onBreakpointChange={() => onBreakpointChange}
-        onResizeStop={(layouts, layout) => props.containersStore.updateLayout(layout)}
-        onDragStop={(layouts, layout) => props.containersStore.updateLayout(layout)}
+        onResizeStop={(layouts, oldLayout, updatedLayout) =>
+        {
+          console.dir(updatedLayout);
+          props.containersStore.updateLayout(updatedLayout);
+        }}
+        onDragStop={(layouts, oldLayout, updatedLayout) => props.containersStore.updateLayout(updatedLayout)}
         onDrop={onDrop}
         draggableHandle=".drag-handle"
         // WidthProvider option
