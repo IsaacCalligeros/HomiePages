@@ -37,4 +37,13 @@ export class PortfolioStore {
     this.portfolio.equities.push(newEquity);
     this.equityService.AddEquity(newEquity);
   };
+
+  @action deleteEquity = async (id: number) => {
+    var res = await this.equityService.deleteEquity(id);
+    if (res)
+    {
+      this.portfolio.equities = this.portfolio.equities.filter(e => e.id !== id);
+    }
+    //otherwise failed
+  }
 }

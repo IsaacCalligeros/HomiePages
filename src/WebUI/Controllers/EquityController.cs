@@ -38,7 +38,7 @@ namespace HomiePages.WebUI.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteEquity")]
+        [Route("DeleteEquity/{equityId}")]
         public async Task<ActionResult> DeleteEquity(int equityId)
         {
             var addRes = await _equityService.DeleteEquity(equityId, UserId);

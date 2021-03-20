@@ -99,7 +99,6 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
         onBreakpointChange={() => onBreakpointChange}
         onResizeStop={(layouts, oldLayout, updatedLayout) =>
         {
-          console.dir(updatedLayout);
           props.containersStore.updateLayout(updatedLayout);
         }}
         onDragStop={(layouts, oldLayout, updatedLayout) => props.containersStore.updateLayout(updatedLayout)}

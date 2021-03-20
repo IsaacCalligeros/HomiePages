@@ -42,4 +42,10 @@ export class EquityService {
       .post("api/Equity/AddEquity", equity)).data;
     return res;
   }
+
+  deleteEquity = async (id: number) => {
+    const res : boolean = await (await axiosInstance
+      .delete(`api/Equity/DeleteEquity/${id}`)).data;
+    return res;
+  }
 };
