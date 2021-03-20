@@ -20,6 +20,10 @@ jobs:
       run: dotnet tool install --global dotnet-ef
     - name: Build with dotnet
       run: dotnet build --configuration Release HomiePages.sln
+    - name: test
+      run: echo "$user"
+      env:
+        user: ${{ secrets.CICD_USER }}
     - name: Push to Linode
       run: | 
           echo "$ssh_key" > ~/ssh_key
