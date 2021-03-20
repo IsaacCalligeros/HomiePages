@@ -20,15 +20,11 @@ jobs:
       run: dotnet tool install --global dotnet-ef
     - name: Build with dotnet
       run: dotnet build --configuration Release HomiePages.sln
-    - name: test
-      run: echo "$user"
-      env:
-        user: ${{ secrets.CICD_USER }}
     - name: Push to Linode
       run: | 
           echo "$ssh_key" > ~/ssh_key
           chmod 600 ~/ssh_key
-          rsync -e "ssh -i ~/ssh_key -o StrictHostKeyChecking=no" -avzr .src/WebUI/bin/Release/net5.0/publish/ "$user"@"$target_ip":/var/homiepages/app -v
+          rsync -e "ssh -i ~/ssh_key -o StrictHostKeyChecking=no" -avzr ./src/WebUI/bin/Release/net5.0/publish/ "$user"@"$target_ip":/var/homiepages/app -v
       env:
         ssh_key: ${{ secrets.CICD_SSH }}
         user: ${{ secrets.CICD_USER }}
