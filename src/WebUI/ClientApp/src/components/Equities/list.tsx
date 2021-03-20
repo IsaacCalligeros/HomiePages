@@ -56,7 +56,7 @@ const EquityList = (props: EquityListProps) => {
         label="searchTerm"
         value={searchTerm}
         onChange={handleChange}
-        variant="outlined"
+        variant="outlined" 
       />
 
       <table className="table table-striped" aria-labelledby="tabelLabel">
