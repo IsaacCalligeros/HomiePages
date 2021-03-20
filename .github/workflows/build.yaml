@@ -21,8 +21,7 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release HomiePages.sln
     - name: Push to Linode
-      run: |
-          echo "$ssh_key" > ~/ssh_key
+      run: echo "$ssh_key" > ~/ssh_key
           chmod 600 ~/ssh_key
           rsync -e "ssh -i ~/ssh_key -o StrictHostKeyChecking=no" -avzr .src/WebUI/bin/Release/net5.0/publish/ "$user"@"$target_ip":/var/homiepages/app
       env:
