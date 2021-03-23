@@ -24,7 +24,7 @@ jobs:
       run: |
           echo "$ssh_key" > ~/ssh_key
           chmod 600 ~/ssh_key
-          rsync -e "ssh -i ~/ssh_key -o StrictHostKeyChecking=no" -avzr ./src/WebUI/bin/Release/net5.0/* "$user"@"$target_ip":/var/homiepages/app
+          rsync -e "ssh -v -i ~/ssh_key -o StrictHostKeyChecking=no" -avzr ./src/WebUI/bin/Release/net5.0/* "$user"@"$target_ip":/var/homiepages/app
       env:
         ssh_key: ${{ secrets.CICD_SSH }}
         user: ${{ secrets.CICD_USER }}
