@@ -61,7 +61,7 @@ const EquityList = (props: EquityListProps) => {
 
       <table className="table table-striped" aria-labelledby="tabelLabel">
         <thead>
-          <tr>
+          <tr> 
             <th>Company</th>
             <th>Industry</th>
             <th>Ticker</th>
