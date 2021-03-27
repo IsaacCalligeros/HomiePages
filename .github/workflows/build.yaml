@@ -22,6 +22,9 @@ jobs:
     - name: Install Dependencies
       run: npm install
       working-directory: src/WebUI/ClientApp
+    - name: Client build
+      run: npm build
+      working-directory: src/WebUI/ClientApp
     - name: Install dotnet ef
       run: dotnet tool install --global dotnet-ef
     - name: Build with dotnet
