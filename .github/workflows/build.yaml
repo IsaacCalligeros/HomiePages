@@ -32,7 +32,7 @@ jobs:
     - name: Inject Secrets
       uses: microsoft/variable-substitution@v1
       with:
-        files: '/src/WebUI/bin/Release/net5.0/appsettings.Production.json'
+        files: './src/WebUI/bin/Release/net5.0/appsettings.Production.json'
       env:
         ConnectionStrings.DefaultConnection: ${{ secrets.POSTGRESQL_CONNECTION_STRING }}
         AdminPassword: ${{ secrets.ADMIN_PASSWORD }}
