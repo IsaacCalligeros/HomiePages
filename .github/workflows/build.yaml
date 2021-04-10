@@ -29,13 +29,13 @@ jobs:
       run: dotnet tool install --global dotnet-ef
     - name: Build with dotnet
       run: dotnet build --configuration Release HomiePages.sln
-          - name: Inject Secrets
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: '/src/WebUI/bin/Release/net5.0/appsettings.Production.json'
-        env:
-          ConnectionStrings.DefaultConnection: ${{ secrets.POSTGRESQL_CONNECTION_STRING }}
-          AdminPassword: ${{ secrets.ADMIN_PASSWORD }}
+    - name: Inject Secrets
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: '/src/WebUI/bin/Release/net5.0/appsettings.Production.json'
+      env:
+        ConnectionStrings.DefaultConnection: ${{ secrets.POSTGRESQL_CONNECTION_STRING }}
+        AdminPassword: ${{ secrets.ADMIN_PASSWORD }}
     - name: Push to Linode
       run: |
           echo "$ssh_key" > ~/ssh_key
