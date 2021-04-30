@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HomiePages.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210308034706_PortfolioContainerLink")]
-    partial class PortfolioContainerLink
+    [Migration("20210411065653_SampleMigration")]
+    partial class SampleMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,18 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .UseIdentityByDefaultColumn();
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
 
                     b.Property<float>("NumberHeld")
                         .HasColumnType("real");
@@ -102,10 +114,15 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                         .HasColumnType("integer")
                         .UseIdentityByDefaultColumn();
 
+                    b.Property<long>("ContainerId")
+                        .HasColumnType("bigint");
+
                     b.Property<int>("NewsSource")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ContainerId");
 
                     b.ToTable("News");
                 });
@@ -130,81 +147,6 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                     b.ToTable("Portfolios");
                 });
 
-            modelBuilder.Entity("HomiePages.Domain.Entities.TodoItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("Done")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("text");
-
-                    b.Property<int>("ListId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Priority")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("Reminder")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ListId");
-
-                    b.ToTable("TodoItems");
-                });
-
-            modelBuilder.Entity("HomiePages.Domain.Entities.TodoList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TodoLists");
-                });
-
             modelBuilder.Entity("HomiePages.Domain.Entities.Weather", b =>
                 {
                     b.Property<int>("Id")
@@ -215,6 +157,9 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                     b.Property<string>("CityName")
                         .HasColumnType("text");
 
+                    b.Property<long>("ContainerId")
+                        .HasColumnType("bigint");
+
                     b.Property<double?>("Latitude")
                         .HasColumnType("double precision");
 
@@ -222,6 +167,8 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ContainerId");
 
                     b.ToTable("Weather");
                 });
@@ -545,6 +492,17 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("HomiePages.Domain.Entities.News", b =>
+                {
+                    b.HasOne("HomiePages.Domain.Entities.BaseContainer", "Container")
+                        .WithMany()
+                        .HasForeignKey("ContainerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Container");
+                });
+
             modelBuilder.Entity("HomiePages.Domain.Entities.Portfolio", b =>
                 {
                     b.HasOne("HomiePages.Domain.Entities.BaseContainer", "Container")
@@ -556,38 +514,15 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                     b.Navigation("Container");
                 });
 
-            modelBuilder.Entity("HomiePages.Domain.Entities.TodoItem", b =>
+            modelBuilder.Entity("HomiePages.Domain.Entities.Weather", b =>
                 {
-                    b.HasOne("HomiePages.Domain.Entities.TodoList", "List")
-                        .WithMany("Items")
-                        .HasForeignKey("ListId")
+                    b.HasOne("HomiePages.Domain.Entities.BaseContainer", "Container")
+                        .WithMany()
+                        .HasForeignKey("ContainerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("List");
-                });
-
-            modelBuilder.Entity("HomiePages.Domain.Entities.TodoList", b =>
-                {
-                    b.OwnsOne("HomiePages.Domain.ValueObjects.Colour", "Colour", b1 =>
-                        {
-                            b1.Property<int>("TodoListId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer")
-                                .UseIdentityByDefaultColumn();
-
-                            b1.Property<string>("Code")
-                                .HasColumnType("text");
-
-                            b1.HasKey("TodoListId");
-
-                            b1.ToTable("TodoLists");
-
-                            b1.WithOwner()
-                                .HasForeignKey("TodoListId");
-                        });
-
-                    b.Navigation("Colour");
+                    b.Navigation("Container");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -644,11 +579,6 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("HomiePages.Domain.Entities.Portfolio", b =>
                 {
                     b.Navigation("Equities");
-                });
-
-            modelBuilder.Entity("HomiePages.Domain.Entities.TodoList", b =>
-                {
-                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
