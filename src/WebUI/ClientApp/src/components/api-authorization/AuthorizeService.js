@@ -182,13 +182,7 @@ export class AuthorizeService {
             return;
         }
         console.dir("fetching apiAuthorizeClientConfig");
-        let response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl,
-            {
-                headers : { 
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
-                 }
-                });
+        let response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
         console.dir(response);
         if (!response.ok) {
             throw new Error(`Could not load settings for '${ApplicationName}'`);
