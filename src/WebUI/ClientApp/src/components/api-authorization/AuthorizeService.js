@@ -186,7 +186,7 @@ export class AuthorizeService {
         if (process.env.NODE_ENV !== "development")
         {
             console.dir("not dev");
-            response = await fetch(`https://app.homeypages.com` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
+            response = await fetch(`https://app.homeypages.com` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI");
         }
         else {
             response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUI");
@@ -195,8 +195,6 @@ export class AuthorizeService {
         if (!response.ok) {
             throw new Error(`Could not load settings for '${ApplicationName}'`);
         }
-
-        console.dir(response);
 
         let settings = await response.json();
 
