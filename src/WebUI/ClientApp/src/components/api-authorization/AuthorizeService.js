@@ -200,7 +200,14 @@ export class AuthorizeService {
         if (!response.ok) {
             throw new Error(`Could not load settings for '${ApplicationName}'`);
         }
-
+        console.dir(response.json());
+        try {
+            let test = await response.json();
+        }
+        catch(err)
+        {
+            console.dir(err);
+        }
         let settings = await response.json();
 
         console.dir(settings);
