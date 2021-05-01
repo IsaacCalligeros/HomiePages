@@ -4,16 +4,16 @@ import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
 const location = window.location.toString();
 const publicUrl = new URL(process.env.PUBLIC_URL, location);
+console.dir(publicUrl.origin);
 const instance = axios.create({
-  baseURL: publicUrl.origin,
+  baseURL: process.env.BROWSER_SIDE_URL,
+  httpsAgent: true
 });
-
 
 const login = async () => {
   const result = await authService.signIn();
   switch (result.status) {
       case AuthenticationResultStatus.Success:
-
           break;
       case AuthenticationResultStatus.Fail:
           //Navigate to login
