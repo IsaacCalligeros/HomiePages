@@ -23,12 +23,13 @@ namespace HomiePages.WebUI
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        private const string ReactApp = "ReactApp";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -58,6 +59,12 @@ namespace HomiePages.WebUI
 
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
+
+            services.AddCors(options => options.AddPolicy(ReactApp, build => build
+                    .AllowAnyHeader()
+                    .WithOrigins("https://localhost:3000", "https://app.homeypages.com")
+                    .AllowAnyMethod()
+                    .AllowCredentials()));
 
             services.AddControllersWithViews(options =>
                 options.Filters.Add<ApiExceptionFilterAttribute>())
@@ -106,6 +113,8 @@ namespace HomiePages.WebUI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors(ReactApp);
 
             app.UseHealthChecks("/health");
             app.UseHttpsRedirection();

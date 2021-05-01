@@ -36,6 +36,7 @@ jobs:
       env:
         ConnectionStrings.DefaultConnection: ${{ secrets.POSTGRESQL_CONNECTION_STRING }}
         AdminPassword: ${{ secrets.ADMIN_PASSWORD }}
+        IdentityServer.Key.Password: ${{secrets.IDENTITYSERVER_CERT_PASSWORD}}
     - name: Push to Linode
       run: |
           echo "$ssh_key" > ~/ssh_key
