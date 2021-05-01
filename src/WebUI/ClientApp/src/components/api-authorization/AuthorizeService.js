@@ -182,6 +182,9 @@ export class AuthorizeService {
             return;
         }
         console.dir("fetching apiAuthorizeClientConfig");
+        console.dir(process.env.BROWSER_SIDE_URL);
+        console.dir(process.env);
+        console.dir(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
         let response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
         console.dir(response);
         if (!response.ok) {
