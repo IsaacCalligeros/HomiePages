@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import _ from "lodash";
 import "../../CSS/news.scss";
 import { PortfolioStore } from "../Portfolio/portfolioStore";
 import { Button, Tab, Tabs } from "@material-ui/core";

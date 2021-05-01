@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Company, EquityModel } from "../../models/models";
 import TextField from "@material-ui/core/TextField";
-import _ from "lodash";
 import "../../CSS/news.scss";
 import { EquityService } from "../../services/EquityService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,7 +25,7 @@ const EquityList = (props: EquityListProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [asxCompanies, setAsxCompanies] = useState<Company[] | undefined>(undefined);
 
-  const equityService = new EquityService();
+  const [equityService] = useState(new EquityService());
 
   const [selectedCompany, setSelectedCompany] = useState<EquityModel>(
     defaultEquity

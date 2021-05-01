@@ -11,7 +11,7 @@ import { BaseContainer, ComponentType } from "../../models/models";
 import { ContainersStore } from "../../store/containersStore";
 import { observer } from "mobx-react-lite";
 import { PortfolioComponent } from "../Portfolio/Portfolio";
-import { containersStoreContext } from "../../store/containerStoreContext";
+//import { containersStoreContext } from "../../store/containerStoreContext";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -32,7 +32,7 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
   };
 
   const [currentBreakpoint, setCurrentBreakpoint] = useState("lg");
-  const [compactType, setCompactType] = useState<string | null>(null);
+  const [compactType] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -82,9 +82,9 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
-            {l.componentType == ComponentType.Weather && <Weather></Weather>}
-            {l.componentType == ComponentType.News && <News></News>}
-            {l.componentType == ComponentType.Portfolio && (
+            {l.componentType === ComponentType.Weather && <Weather></Weather>}
+            {l.componentType === ComponentType.News && <News></News>}
+            {l.componentType === ComponentType.Portfolio && (
               <PortfolioComponent containerId={l.containerId}></PortfolioComponent>
             )}
         </div>

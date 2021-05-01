@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "../../axiosInstance";
 import WeatherTypes from "./types";
 
 const Weather = () => {
-  const [loading, setLoading] = useState(true);
-  const [forecasts, setForecasts] = useState<WeatherTypes.forecast[]>([]);
+  const [forecasts] = useState<WeatherTypes.forecast[]>([]);
 
   useEffect(() => {
       // axiosInstance.get("/weatherforecast").then((res) => {

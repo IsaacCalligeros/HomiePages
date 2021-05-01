@@ -1,11 +1,8 @@
-import React, { useState } from "react";
-import _ from "lodash";
+import React from "react";
 import { observer } from "mobx-react-lite";
-// import "../../CSS/grid-layout.scss";
 import { ContainersStore } from "../../store/containersStore";
 import DragFromOutsideLayout from "./grids";
 import { SideBar } from "../App/SideBar";
-import ReactDOM from "react-dom";
 import MenuPortal from "../App/menu-portal";
 
 interface HomeProps {

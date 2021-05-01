@@ -13,7 +13,7 @@ const instance = axios.create({
 });
 
 const login = async () => {
-  const result = await authService.signIn();
+  const result = await authService.signIn(process.env.BROWSER_SIDE_URL);
   switch (result.status) {
       case AuthenticationResultStatus.Success:
           break;

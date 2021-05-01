@@ -5,14 +5,10 @@ import {
   Navbar,
   NavbarBrand,
   NavbarToggler,
-  NavItem,
-  NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { LoginMenu } from "../api-authorization/LoginMenu";
 import "../../CSS/NavMenu.scss";
-import { SideBar } from "./SideBar";
-import { ContainersStore } from "../../store/containersStore";
 
 const NavMenu = () => {
     const [collapsed, setCollapsed] = useState(true);

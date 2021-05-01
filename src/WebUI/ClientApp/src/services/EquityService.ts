@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import axiosInstance from "../axiosInstance";
-import { Company, Equity, EquityModel, Quote } from "../models/models";
+import { Company, EquityModel, Quote } from "../models/models";
 
 export class EquityService {
   getCompanies = (searchTerm: string): Promise<Company[]> => {

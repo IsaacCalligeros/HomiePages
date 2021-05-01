@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -65,7 +65,7 @@ const SideBar = (props: sideBarProps) => {
       layoutId: layoutId,
       
     };
-    const res = props.containersStore.saveContainer(newContainer);
+    props.containersStore.saveContainer(newContainer);
   };
 
   const list = (anchor: Anchor) => (

@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import axiosInstance from "../axiosInstance";
 import { Portfolio, PortfolioModel } from "../models/models";
 

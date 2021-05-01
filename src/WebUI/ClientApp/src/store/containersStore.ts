@@ -1,7 +1,6 @@
 import _ from "lodash";
 import { observable, action } from "mobx";
 import { Layout } from "react-grid-layout";
-import axiosInstance from "../axiosInstance";
 import { BaseContainer } from "../models/models";
 import { ContainersService } from "./containersService";
 
@@ -27,7 +26,7 @@ export class ContainersStore {
     var res = await this.containersService.DeleteContainer(i);
     if (res) {
       this.setContainers(
-        _.reject(this.containers, (l) => l.layout.i == i.toString())
+        _.reject(this.containers, (l) => l.layout.i === i.toString())
       );
     }
   };
@@ -45,7 +44,7 @@ export class ContainersStore {
 
   @action saveContainer = async (newContainer: BaseContainer) => {
     var res = await this.containersService.SaveContainer(newContainer);
-    this.addContainer(newContainer);
+    this.addContainer(res);
   };
 
   @action updateLayouts = (layouts: Layout[]) => {
