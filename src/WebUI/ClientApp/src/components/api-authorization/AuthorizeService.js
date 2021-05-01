@@ -181,12 +181,16 @@ export class AuthorizeService {
         if (this.userManager !== undefined) {
             return;
         }
-        console.dir("fetching apiAuthorizeClientConfig");
-        console.dir(process.env.BROWSER_SIDE_URL);
-        console.dir(process.env);
-        console.dir(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
-        let response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
-        console.dir(response);
+
+        let response;
+        if (process.env.NODE_ENV !== "development")
+        {
+            response = await fetch(`https://app.homeypages.com` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
+        }
+        else {
+            response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
+        }
+
         if (!response.ok) {
             throw new Error(`Could not load settings for '${ApplicationName}'`);
         }
