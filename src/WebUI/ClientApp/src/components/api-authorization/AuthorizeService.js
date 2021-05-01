@@ -41,9 +41,12 @@ export class AuthorizeService {
     // 3) If the two methods above fail, we redirect the browser to the IdP to perform a traditional
     //    redirect flow.
     async signIn(state) {
+        console.dir("in sign in");
         await this.ensureUserManagerInitialized();
+        console.dir("completed ensureUserManagerInitialized");
         try {
             const silentUser = await this.userManager.signinSilent(this.createArguments());
+            console.dir("silentUser:", silentUser);
             this.updateState(silentUser);
             return this.success(state);
         } catch (silentError) {
@@ -178,18 +181,29 @@ export class AuthorizeService {
         if (this.userManager !== undefined) {
             return;
         }
-
-        let response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
+        console.dir("fetching apiAuthorizeClientConfig");
+        let response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl,
+            {
+                headers : { 
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                 }
+                });
+        console.dir(response);
         if (!response.ok) {
             throw new Error(`Could not load settings for '${ApplicationName}'`);
         }
+;
 
         let settings = await response.json();
+
+        console.dir(settings);
         settings.automaticSilentRenew = true;
         settings.includeIdTokenInSilentRenew = true;
         settings.userStore = new WebStorageStateStore({
             prefix: ApplicationName
         });
+        console.dir(settings);
 
         this.userManager = new UserManager(settings);
 

@@ -4,7 +4,10 @@ import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
 const location = window.location.toString();
 const publicUrl = new URL(process.env.PUBLIC_URL, location);
+
 console.dir(publicUrl.origin);
+console.dir(process.env.BROWSER_SIDE_URL);
+
 const instance = axios.create({
   baseURL: process.env.BROWSER_SIDE_URL,
   httpsAgent: true

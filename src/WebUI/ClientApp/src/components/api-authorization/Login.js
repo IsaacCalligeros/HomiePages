@@ -65,6 +65,8 @@ export class Login extends Component {
     }
 
     async login(returnUrl) {
+        console.dir("loginMethod");
+        console.dir(returnUrl);
         const state = { returnUrl };
         const result = await authService.signIn(state);
         switch (result.status) {
