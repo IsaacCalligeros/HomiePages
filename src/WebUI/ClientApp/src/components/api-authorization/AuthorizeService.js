@@ -12,13 +12,11 @@ export class AuthorizeService {
     _popUpDisabled = true;
 
     async isAuthenticated() {
-        console.dir("isAuthenticated?");
         const user = await this.getUser();
         return !!user;
     }
 
     async getUser() {
-        console.dir("getUser");
         if (this._user && this._user.profile) {
             return this._user.profile;
         }
@@ -43,9 +41,7 @@ export class AuthorizeService {
     // 3) If the two methods above fail, we redirect the browser to the IdP to perform a traditional
     //    redirect flow.
     async signIn(state) {
-        console.dir("in sign in");
         await this.ensureUserManagerInitialized();
-        console.dir("completed ensureUserManagerInitialized");
         try {
             const silentUser = await this.userManager.signinSilent(this.createArguments());
             console.dir("silentUser:", silentUser);
@@ -195,19 +191,13 @@ export class AuthorizeService {
         else {
             response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUI");
         }
-        console.dir(response);
 
         if (!response.ok) {
             throw new Error(`Could not load settings for '${ApplicationName}'`);
         }
-        console.dir(response.json());
-        try {
-            let test = await response.json();
-        }
-        catch(err)
-        {
-            console.dir(err);
-        }
+
+        console.dir(response);
+
         let settings = await response.json();
 
         console.dir(settings);
