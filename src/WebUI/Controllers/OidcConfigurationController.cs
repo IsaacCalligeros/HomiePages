@@ -20,8 +20,6 @@ namespace HomiePages.WebUI.Controllers
         [HttpGet("_configuration/{clientId}")]
         public IActionResult GetClientRequestParameters([FromRoute]string clientId)
         {
-            //TODO: don't hack a shaq this
-            clientId += ".WebUI";
             var parameters = ClientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
             return Ok(parameters);
         }

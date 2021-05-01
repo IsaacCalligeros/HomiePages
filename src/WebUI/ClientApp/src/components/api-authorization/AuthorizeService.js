@@ -12,11 +12,13 @@ export class AuthorizeService {
     _popUpDisabled = true;
 
     async isAuthenticated() {
+        console.dir("isAuthenticated?");
         const user = await this.getUser();
         return !!user;
     }
 
     async getUser() {
+        console.dir("getUser");
         if (this._user && this._user.profile) {
             return this._user.profile;
         }
@@ -183,13 +185,17 @@ export class AuthorizeService {
         }
 
         let response;
+        console.dir("before checking node env");
+        console.dir(process);
         if (process.env.NODE_ENV !== "development")
         {
+            console.dir("not dev");
             response = await fetch(`https://app.homeypages.com` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
         }
         else {
-            response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
+            response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUI");
         }
+        console.dir(response);
 
         if (!response.ok) {
             throw new Error(`Could not load settings for '${ApplicationName}'`);
