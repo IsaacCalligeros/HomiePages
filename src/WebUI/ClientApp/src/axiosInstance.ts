@@ -1,6 +1,5 @@
 import axios from "axios";
 import authService, { AuthenticationResultStatus } from "./components/api-authorization/AuthorizeService";
-import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
 const location = window.location.toString();
 const publicUrl = new URL(process.env.PUBLIC_URL, location);
