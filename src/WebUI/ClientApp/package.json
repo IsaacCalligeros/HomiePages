@@ -40,7 +40,7 @@
   "devDependencies": {
     "@types/uuid": "^8.3.0",
     "ajv": "^6.9.1",
-    "cross-env": "^5.2.0",
+    "cross-env": "^5.2.1",
     "eslint": "^6.8.0",
     "eslint-config-react-app": "^5.2.0",
     "eslint-plugin-flowtype": "^4.6.0",
@@ -55,8 +55,8 @@
   },
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
-    "start:prod": "rimraf ./build && react-scripts start --env=Production",
     "build": "react-scripts build",
+    "build:prod": "SET NODE_ENV=production react-scripts build",
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ./src/"
