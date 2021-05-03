@@ -183,6 +183,7 @@ export class AuthorizeService {
         let response;
         console.dir("before checking node env");
         console.dir(process.env.NODE_ENV);
+        console.dir(process.env.BROWSER_SIDE_URL);
         if (process.env.NODE_ENV !== "development")
         {
             console.dir("not dev");
