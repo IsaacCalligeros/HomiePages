@@ -57,7 +57,6 @@
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
     "build": "react-scripts build",
-    "build:prod": "env-cmd -f .env.production react-scripts build",
     "serve:prod": "env-cmd -f .env.production serve -s build -l 3000",
     "test": "CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
