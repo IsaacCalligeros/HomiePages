@@ -184,6 +184,8 @@ export class AuthorizeService {
         console.dir("before checking node env");
         console.dir(process.env.NODE_ENV);
         console.dir(process.env.BROWSER_SIDE_URL);
+        console.dir(process.env.REACT_APP_BROWSER_SIDE_URL);
+        
         if (process.env.NODE_ENV !== "development")
         {
             console.dir("not dev");
