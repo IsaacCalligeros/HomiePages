@@ -3,7 +3,7 @@ Description=Homiepages React App
 
 [Service]
 WorkingDirectory=/var/homiepages/api/ClientApp
-ExecStart=npm run start:prod
+ExecStart=serve -s build -l 3000
 Restart=always
 # Restart service after 10 seconds if the dotnet service crashes:
 RestartSec=10
