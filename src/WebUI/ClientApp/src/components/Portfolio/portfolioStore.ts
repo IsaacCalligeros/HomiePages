@@ -1,5 +1,5 @@
 import { observable, action, runInAction } from "mobx";
-import { Equity, EquityModel, PortfolioModel } from "../../models/models";
+import { EquityModel, PortfolioModel } from "../../models/models";
 import { EquityService } from "../../services/EquityService";
 import { PortfolioService } from "../../services/PortfolioService";
 

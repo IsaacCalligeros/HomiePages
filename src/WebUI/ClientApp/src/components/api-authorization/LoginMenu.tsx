@@ -29,6 +29,7 @@ const LoginMenu = () => {
     return () => {
       authService.unsubscribe(subscription);
     };
+    // eslint-disable-next-line
   }, []);
 
   const populateState = async () => {

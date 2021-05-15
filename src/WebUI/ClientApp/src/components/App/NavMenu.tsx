@@ -12,11 +12,6 @@ import "../../CSS/NavMenu.scss";
 
 const NavMenu = () => {
     const [collapsed, setCollapsed] = useState(true);
-    const [open, setOpen] = useState(false);
-
-    const setOpenProp = () => {
-      setOpen(!open);
-    }
 
     return (
       <header>

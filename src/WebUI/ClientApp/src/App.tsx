@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Route } from "react-router";
 import { Home } from "./components/Containers/Home";
 import AuthorizeRoute from "./components/api-authorization/AuthorizeRoute";
@@ -8,10 +8,9 @@ import { ApplicationPaths } from "./components/api-authorization/ApiAuthorizatio
 import Container from "@material-ui/core/Container";
 
 import "../src/CSS/custom.scss";
-import { Link, Switch, Redirect } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import { NavMenu } from "./components/App/NavMenu";
 import { ContainersStore } from "./store/containersStore";
-import { News } from "./components/News/News";
 import { observer } from "mobx-react-lite";
 
 const App: React.FC = observer(() => {

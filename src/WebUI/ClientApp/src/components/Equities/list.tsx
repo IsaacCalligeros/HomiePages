@@ -24,8 +24,8 @@ const EquityList = (props: EquityListProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [asxCompanies, setAsxCompanies] = useState<Company[] | undefined>(undefined);
-
-  const [equityService] = useState(new EquityService());
+  
+  const equityService = new EquityService();
 
   const [selectedCompany, setSelectedCompany] = useState<EquityModel>(
     defaultEquity
@@ -35,7 +35,7 @@ const EquityList = (props: EquityListProps) => {
     equityService.getCompanies(searchTerm).then((res) => {
       setAsxCompanies(res);
     });
-  }, [searchTerm]);
+  }, [searchTerm, equityService]);
 
   const mapToEquity = (company: Company): EquityModel => {
     var equity = defaultEquity;

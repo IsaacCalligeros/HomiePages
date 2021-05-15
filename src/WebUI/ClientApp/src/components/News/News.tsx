@@ -1,8 +1,7 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axiosInstance from "../../axiosInstance";
 import { NewsDto } from "../../models/models";
 import TextField from "@material-ui/core/TextField";
-import _ from "lodash";
 import "../../CSS/news.scss";
 
 const News = () => {
@@ -55,7 +54,7 @@ const News = () => {
               <td>
                 {article.author}
                 <br />
-                <a href={article.url} target="_blank">{article.url?.split(".com")[0]}</a>
+                <a href={article.url} rel="noopener noreferrer" target="_blank">{article.url?.split(".com")[0]}</a>
               </td>
               <td>{article.description}</td>
             </tr>
