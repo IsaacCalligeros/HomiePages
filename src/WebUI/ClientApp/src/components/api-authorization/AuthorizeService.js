@@ -181,27 +181,13 @@ export class AuthorizeService {
         }
 
         let response;
-        console.dir("before checking node env");
-        console.dir(process.env.NODE_ENV);
-        console.dir(process.env.BROWSER_SIDE_URL);
-        console.dir(process.env.REACT_APP_BROWSER_SIDE_URL);
         
         if (process.env.NODE_ENV !== "development")
         {
             console.dir("not dev");
-
-            const t1 = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI");
-            console.dir(t1);
-            const t2 = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUI");
-            console.dir(t2);
-
-            const test = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI")
-            .then(r => {
-                console.dir(r);
-                return r;
-            });
-            console.dir(test);
-            response = await fetch(`https://app.homeypages.com` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI");
+            response = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI")
+                .then(response => response.json())
+                .then(data => { return data });
         }
         else {
             response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUI");
