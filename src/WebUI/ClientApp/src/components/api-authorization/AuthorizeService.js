@@ -206,13 +206,14 @@ export class AuthorizeService {
         }
 
         let settings = await response.json();
-
+        console.dir('set1');
         console.dir(settings);
         settings.automaticSilentRenew = true;
         settings.includeIdTokenInSilentRenew = true;
         settings.userStore = new WebStorageStateStore({
             prefix: ApplicationName
         });
+        console.dir('set2');
         console.dir(settings);
 
         this.userManager = new UserManager(settings);
