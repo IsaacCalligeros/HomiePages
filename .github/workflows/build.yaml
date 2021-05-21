@@ -42,7 +42,7 @@ jobs:
           echo "$ssh_key" > ~/ssh_key
           chmod 600 ~/ssh_key
           rsync -e "ssh -v -i ~/ssh_key -o StrictHostKeyChecking=no" -avzr ./src/WebUI/bin/Release/net5.0/* "$user"@"$target_ip":/var/homiepages/api
-          rsync -e "ssh -v -i ~/ssh_key -o StrictHostKeyChecking=no" -avzr ./src/WebUI/ClientApp/build "$user"@"$target_ip":/var/homiepages/api/ClientApp
+          rsync -e "ssh -v -i ~/ssh_key -o StrictHostKeyChecking=no" -avzr ./src/WebUI/ClientApp "$user"@"$target_ip":/var/homiepages/api
       env:
         ssh_key: ${{ secrets.CICD_SSH }}
         user: ${{ secrets.CICD_USER }}

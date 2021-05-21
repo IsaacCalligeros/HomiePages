@@ -82,7 +82,7 @@ namespace HomiePages.WebUI
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
-            });            
+            });
 
             services.AddOpenApiDocument(configure =>
             {
