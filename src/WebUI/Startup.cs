@@ -78,11 +78,11 @@ namespace HomiePages.WebUI
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            // In production, the Angular files will be served from this directory
+            // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
-            });
+                configuration.RootPath = "ClientApp/build";
+            });            
 
             services.AddOpenApiDocument(configure =>
             {
