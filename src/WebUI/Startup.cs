@@ -149,14 +149,10 @@ namespace HomiePages.WebUI
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                if (!env.IsDevelopment())
-                {
-                    spa.Options.SourcePath = "build";
-                }
+                spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
                 {
-                    spa.Options.SourcePath = "ClientApp";
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });

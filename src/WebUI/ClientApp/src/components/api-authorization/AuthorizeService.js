@@ -44,13 +44,10 @@ export class AuthorizeService {
         await this.ensureUserManagerInitialized();
         try {
             const silentUser = await this.userManager.signinSilent(this.createArguments());
-            console.dir("silentUser:", silentUser);
             this.updateState(silentUser);
             return this.success(state);
         } catch (silentError) {
             // User might not be authenticated, fallback to popup authentication
-            console.log("Silent authentication error: ", silentError);
-
             try {
                 if (this._popUpDisabled) {
                     throw new Error('Popup disabled. Change \'AuthorizeService.js:AuthorizeService._popupDisabled\' to false to enable it.')
@@ -183,24 +180,12 @@ export class AuthorizeService {
         let response;
 
         if (process.env.NODE_ENV !== "development") {
-            console.dir("not dev");
-            response = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI",
+            response = await fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI",
                 {
                     headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                      },
-                })
-                .then(response => {
-                    console.dir('responses')
-                    console.dir(response);
-                    console.dir(response.json());
-                    return response.json();
-                })
-                .then(data => {
-                    console.dir('data')
-                    console.dir(data);
-                    return data;
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                      }
                 });
         }
         else {
