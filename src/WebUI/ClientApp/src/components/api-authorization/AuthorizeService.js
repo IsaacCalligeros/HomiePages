@@ -189,7 +189,7 @@ export class AuthorizeService {
         if (process.env.NODE_ENV !== "development")
         {
             console.dir("not dev");
-            const test = fetch(`https://app.homeypages.com` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI")
+            const test = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI")
             .then(r => {
                 console.dir(r);
                 return r;
