@@ -31,7 +31,7 @@ namespace HomiePages.WebUI.Controllers
         [HttpGet]
         public string FindOrCreate(long containerId)
         {
-            _logger.LogInformation("loggggeedddd");
+            _logger.LogError("loggggeedddd");
             return "This is from the test controller";
         }
     }

@@ -21,7 +21,7 @@ namespace HomiePages.WebUI.Controllers
         [HttpGet("_configuration/{clientId}")]
         public IActionResult GetClientRequestParameters([FromRoute]string clientId)
         {
-            logger.LogInformation("hit endpoint");
+            logger.LogError("hit endpoint");
             var parameters = ClientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
             logger.LogInformation(DictionaryToString(parameters));
             return Ok(parameters);
