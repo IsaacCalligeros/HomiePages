@@ -181,13 +181,21 @@ export class AuthorizeService {
         }
 
         let response;
-        
-        if (process.env.NODE_ENV !== "development")
-        {
+
+        if (process.env.NODE_ENV !== "development") {
             console.dir("not dev");
-            response = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI")
+            response = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI",
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                })
                 .then(response => response.json())
-                .then(data => { return data });
+                .then(data => {
+                    console.dir(data);
+                    return data
+                });
         }
         else {
             response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUI");
