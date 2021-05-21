@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace HomiePages.WebUI.Controllers
@@ -19,13 +20,18 @@ namespace HomiePages.WebUI.Controllers
     [Route("api/[controller]")]
     public class TestController : ApiControllerBase
     {
-        public TestController()
+        
+        private readonly ILogger<TestController> _logger;
+
+        public TestController(ILogger<TestController> logger)
         {
+            _logger = logger;
         }
 
         [HttpGet]
         public string FindOrCreate(long containerId)
         {
+            _logger.LogInformation("loggggeedddd");
             return "This is from the test controller";
         }
     }
