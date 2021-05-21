@@ -193,7 +193,7 @@ export class AuthorizeService {
             const t1 = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI");
             console.dir(t1);
             const t2 = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUI");
-            console.dir(t1);
+            console.dir(t2);
 
             const test = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI")
             .then(r => {
