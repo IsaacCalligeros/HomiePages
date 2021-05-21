@@ -118,6 +118,7 @@ namespace HomiePages.WebUI
 
             app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
