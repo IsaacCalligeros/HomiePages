@@ -187,14 +187,14 @@ export class AuthorizeService {
             response = fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI",
                 {
                     headers: {
-                        'Content-Type': 'application/json'
-                        // 'Content-Type': 'application/x-www-form-urlencoded',
-                    },
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                      },
                 })
                 .then(response => response.json())
                 .then(data => {
                     console.dir(data);
-                    return data
+                    return data;
                 });
         }
         else {
