@@ -191,8 +191,14 @@ export class AuthorizeService {
                         Accept: "application/json",
                       },
                 })
-                .then(response => response.json())
+                .then(response => {
+                    console.dir('responses')
+                    console.dir(response);
+                    console.dir(response.json());
+                    return response.json();
+                })
                 .then(data => {
+                    console.dir('data')
                     console.dir(data);
                     return data;
                 });
