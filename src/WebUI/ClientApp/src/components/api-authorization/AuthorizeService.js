@@ -196,9 +196,11 @@ export class AuthorizeService {
 
             console.dir(await test33);
 
+            const plzzz = await fetch(`https://app.homeypages.com` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
+            console.log("plzzz: ", plzzz);
+
         if (process.env.NODE_ENV !== "development") {
-            response = 
-            axios
+            response = await axios
             .get("https://app.homeypages.com" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl)
             .then((res) => {
                 console.dir(res);
