@@ -63,11 +63,8 @@ namespace HomiePages.WebUI
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
 
-            services.AddCors(options => options.AddPolicy(ReactApp, build => build
-                    .AllowAnyHeader()
-                    .AllowAnyOrigin() //TODO:  update in the future
-                    .AllowAnyMethod()
-                    .AllowCredentials()));
+            services.AddCors(options => options.AddDefaultPolicy(builder => 
+                    builder.AllowAnyOrigin()));
 
             services.AddControllersWithViews(options =>
                 options.Filters.Add<ApiExceptionFilterAttribute>())
@@ -117,7 +114,7 @@ namespace HomiePages.WebUI
                 app.UseHsts();
             }
 
-            app.UseCors(ReactApp);
+            app.UseCors();
 
             app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
