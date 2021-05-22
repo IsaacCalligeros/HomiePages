@@ -181,21 +181,29 @@ export class AuthorizeService {
         let response;
 
         const test = axios
-            .get("api/" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl)
+            .get("https://app.homeypages.com/api/" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl)
             .then((res) => {
                 console.dir(res);
             });
 
-            console.dir(test);
+            console.dir(await test);
+
+            const test33 = axios
+            .get("https://app.homeypages.com" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl)
+            .then((res) => {
+                console.dir(res);
+            });
+
+            console.dir(await test33);
 
         if (process.env.NODE_ENV !== "development") {
-            response = await fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl,
-                {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    }
-                });
+            response = 
+            axios
+            .get("https://app.homeypages.com" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl)
+            .then((res) => {
+                console.dir(res);
+            });
+            
             console.log(response);
         }
         else {
