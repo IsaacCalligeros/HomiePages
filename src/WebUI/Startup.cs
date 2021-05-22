@@ -41,16 +41,19 @@ namespace HomiePages.WebUI
 
             services.AddSingleton<ICurrentUserService, CurrentUserService>();
 
-            services.AddHttpClient(HttpClientHelper.Weather, client => {
+            services.AddHttpClient(HttpClientHelper.Weather, client =>
+            {
                 client.BaseAddress = new Uri("https://api.openweathermap.org/");
             });
 
-            services.AddHttpClient(HttpClientHelper.Equity, client => {
+            services.AddHttpClient(HttpClientHelper.Equity, client =>
+            {
                 client.BaseAddress = new Uri("https://finnhub.io/api/v1/");
                 client.DefaultRequestHeaders.Add("X-Finnhub-Token", Configuration["finnHubKey"]);
             });
 
-            services.AddHttpClient(HttpClientHelper.News, client => {
+            services.AddHttpClient(HttpClientHelper.News, client =>
+            {
                 //Why do they make it a query paramater...
                 client.BaseAddress = new Uri("https://newsapi.org/v2/");
             });

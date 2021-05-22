@@ -23,7 +23,7 @@ namespace HomiePages.WebUI.Controllers
         {
             logger.LogError("hit endpoint");
             var parameters = ClientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
-            logger.LogInformation(DictionaryToString(parameters));
+            logger.LogError(DictionaryToString(parameters));
             return Ok(parameters);
         }
 

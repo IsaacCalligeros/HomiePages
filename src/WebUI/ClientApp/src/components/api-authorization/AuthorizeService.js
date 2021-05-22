@@ -1,5 +1,6 @@
 import { UserManager, WebStorageStateStore } from 'oidc-client';
 import { ApplicationPaths, ApplicationName } from './ApiAuthorizationConstants';
+import axios from "axios";
 
 export class AuthorizeService {
     _callbacks = [];
@@ -179,17 +180,27 @@ export class AuthorizeService {
 
         let response;
 
+        const test = axios
+            .get("api/" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl)
+            .then((res) => {
+                console.dir(res);
+            });
+
+            console.dir(test);
+
         if (process.env.NODE_ENV !== "development") {
-            response = await fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUIAPI",
+            response = await fetch(`https://app.homeypages.com/api` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl,
                 {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',
-                      }
+                    }
                 });
+            console.log(response);
         }
         else {
             response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUI");
+            console.log(response);
         }
 
         if (!response.ok) {
@@ -197,8 +208,8 @@ export class AuthorizeService {
         }
 
         let settings = await response.json();
-        console.dir('set1');
-        console.dir(settings);
+        console.log('set1');
+        console.log(settings);
         settings.automaticSilentRenew = true;
         settings.includeIdTokenInSilentRenew = true;
         settings.userStore = new WebStorageStateStore({
