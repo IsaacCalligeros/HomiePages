@@ -65,7 +65,7 @@ namespace HomiePages.WebUI
 
             services.AddCors(options => options.AddPolicy(ReactApp, build => build
                     .AllowAnyHeader()
-                    .WithOrigins("https://localhost:3000", "https://app.homeypages.com")
+                    .AllowAnyOrigin() //TODO:  update in the future
                     .AllowAnyMethod()
                     .AllowCredentials()));
 
