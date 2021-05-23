@@ -180,44 +180,23 @@ export class AuthorizeService {
 
         let response;
 
-        const test = axios
-            .get("https://app.homeypages.com/api/" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl)
-            .then((res) => {
-                console.dir(res);
-            });
-
-            console.dir(await test);
-
-            const test33 = axios
-            .get("https://app.homeypages.com" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl)
-            .then((res) => {
-                console.dir(res);
-            });
-
-            console.dir(await test33);
-
-            const plzzz = await fetch(`https://app.homeypages.com` + ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
-            console.log("plzzz: ", plzzz);
 
         if (process.env.NODE_ENV !== "development") {
-            response = await axios
-            .get("https://app.homeypages.com" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl)
-            .then((res) => {
-                console.dir(res);
-            });
+            response = await axios.get("https://app.homeypages.com/api/OidcConfiguration" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
+            
             
             console.log(response);
         }
         else {
-            response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUI");
-            console.log(response);
+            response = await axios.get("https://localhost:5001/api/OidcConfiguration" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUI");
+            console.dir(response);
         }
 
-        if (!response.ok) {
+        if (response.status !== 200) {
             throw new Error(`Could not load settings for '${ApplicationName}'`);
         }
 
-        let settings = await response.json();
+        let settings = response.data;
         console.log('set1');
         console.log(settings);
         settings.automaticSilentRenew = true;
@@ -225,8 +204,6 @@ export class AuthorizeService {
         settings.userStore = new WebStorageStateStore({
             prefix: ApplicationName
         });
-        console.dir('set2');
-        console.dir(settings);
 
         this.userManager = new UserManager(settings);
 
