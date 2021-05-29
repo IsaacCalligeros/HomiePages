@@ -183,12 +183,10 @@ export class AuthorizeService {
 
         if (process.env.NODE_ENV !== "development") {
             response = await axios.get("https://app.homeypages.com/api/OidcConfiguration" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
-            
-            
             console.log(response);
         }
         else {
-            response = await axios.get("https://localhost:5001/api/OidcConfiguration" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl + ".WebUI");
+            response = await axios.get("https://localhost:5001/api/OidcConfiguration" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
             console.dir(response);
         }
 

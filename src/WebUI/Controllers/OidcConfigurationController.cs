@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -18,9 +19,11 @@ namespace HomiePages.WebUI.Controllers
 
         public IClientRequestParametersProvider ClientRequestParametersProvider { get; }
 
-        [HttpGet("_configuration/{clientId}")]
+        [HttpGet("{clientId}")]
+        [AllowAnonymous]
         public IActionResult GetClientRequestParameters([FromRoute]string clientId)
         {
+            return Ok("WTF");
             logger.LogError("hit endpoint");
             var parameters = ClientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
             logger.LogError(DictionaryToString(parameters));
