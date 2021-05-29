@@ -186,6 +186,9 @@ export class AuthorizeService {
             console.log(response);
         }
         else {
+            const testRes = await axios.get("https://localhost:5001/api/test");
+            console.dir(testRes);
+
             response = await axios.get("https://localhost:5001/api/OidcConfiguration" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
             console.dir(response);
         }

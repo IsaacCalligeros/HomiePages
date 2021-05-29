@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace HomiePages.WebUI.Controllers
 {
-    [ApiExplorerSettings(IgnoreApi = true)]
+    // [ApiExplorerSettings(IgnoreApi = true)]
     public class OidcConfigurationController : ApiControllerBase
     {
         private readonly ILogger<OidcConfigurationController> logger;
