@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace HomiePages.WebUI.Controllers
@@ -25,9 +26,14 @@ namespace HomiePages.WebUI.Controllers
         {
             return Ok("WTF");
             logger.LogError("hit endpoint");
+            try {
             var parameters = ClientRequestParametersProvider.GetClientParameters(HttpContext, clientId);
             logger.LogError(DictionaryToString(parameters));
             return Ok(parameters);
+            }
+            catch(Exception e) {
+                return Ok(e);
+            }
         }
 
         [NonAction]
