@@ -18,6 +18,7 @@ using System.Linq;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using HomiePages.Infrastructure.Helpers;
 using System;
+using IdentityServer4.Extensions;
 
 namespace HomiePages.WebUI
 {
@@ -134,10 +135,12 @@ namespace HomiePages.WebUI
             app.UseRouting();
 
             app.UseAuthentication();
-            
-            app.UseIdentityServer()
-                .UseHttpsRedirection();
-                
+
+            if (!env.IsDevelopment()) {
+                app.Use((ctx, next) => { ctx.SetIdentityServerOrigin("https://app.homeypages.com"); return next(); 
+            });
+
+            app.UseIdentityServer();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
