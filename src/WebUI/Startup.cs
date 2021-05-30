@@ -143,6 +143,7 @@ namespace HomiePages.WebUI
                 });
 
             app.UseIdentityServer();
+
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

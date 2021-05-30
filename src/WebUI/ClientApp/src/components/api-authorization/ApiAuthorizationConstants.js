@@ -19,7 +19,7 @@ export const LoginActions = {
   Register: 'register',
 };
 
-const prefix = '/authentication';
+const prefix = '/api/authentication';
 
 export const ApplicationPaths = {
   DefaultLoginRedirectPath: '/',
