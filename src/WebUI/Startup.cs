@@ -134,7 +134,10 @@ namespace HomiePages.WebUI
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseIdentityServer();
+            
+            app.UseIdentityServer()
+                .UseHttpsRedirection();
+                
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
