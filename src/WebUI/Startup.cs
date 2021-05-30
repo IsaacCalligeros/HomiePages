@@ -136,9 +136,11 @@ namespace HomiePages.WebUI
 
             app.UseAuthentication();
 
-            if (!env.IsDevelopment()) {
-                app.Use((ctx, next) => { ctx.SetIdentityServerOrigin("https://app.homeypages.com"); return next(); 
-            });
+            app.Use(async (ctx, next) =>
+                {
+                    ctx.Request.Scheme = "https";
+                    await next();
+                });
 
             app.UseIdentityServer();
             app.UseAuthorization();
