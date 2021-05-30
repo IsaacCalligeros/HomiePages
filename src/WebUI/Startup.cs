@@ -136,12 +136,6 @@ namespace HomiePages.WebUI
 
             app.UseAuthentication();
 
-            app.Use(async (ctx, next) =>
-                {
-                    ctx.Request.Scheme = "https";
-                    await next();
-                });
-
             app.UseIdentityServer();
 
             app.UseAuthorization();
