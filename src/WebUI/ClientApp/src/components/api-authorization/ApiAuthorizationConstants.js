@@ -1,4 +1,4 @@
-export const ApplicationName = 'HomiePages';
+export const ApplicationName = 'HomiePages.WebUI';
 
 export const QueryParameterNames = {
   ReturnUrl: 'returnUrl',
