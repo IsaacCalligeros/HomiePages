@@ -7,12 +7,16 @@ import { ContainersService } from "./containersService";
 export class ContainersStore {
   private readonly containersService: ContainersService;
 
+  @observable containers: BaseContainer[] = [];
+  @observable editMode: boolean = false;
+
   constructor() {
     this.containersService = new ContainersService();
     this.getContainers();
   }
 
-  @observable containers: BaseContainer[] = [];
+  @action 
+  toggleEditMode = () => this.editMode = !this.editMode;
 
   @action setContainers = (containers: BaseContainer[]) => {
     this.containers = containers;

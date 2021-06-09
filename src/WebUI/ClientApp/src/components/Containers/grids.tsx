@@ -11,7 +11,7 @@ import { BaseContainer, ComponentType } from "../../models/models";
 import { ContainersStore } from "../../store/containersStore";
 import { observer } from "mobx-react-lite";
 import { PortfolioComponent } from "../Portfolio/Portfolio";
-//import { containersStoreContext } from "../../store/containerStoreContext";
+import { containersStoreContext } from "../../store/containerStoreContext";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -62,9 +62,9 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
     props.containersStore.deleteContainer(i);
   };
 
-  // const containerStoreRef = React.useRef<ContainersStore>(
-  //   props.containersStore
-  // );
+  const containerStoreRef = React.useRef<ContainersStore>(
+    props.containersStore
+  );
 
   const generateDOM = () => {
     return _.map(layouts.lg, (l) => {
@@ -75,10 +75,10 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
           data-grid={l.layout}
         >
           <div className="container-controls">
-            <div className="drag-handle">
+            <div className="drag-handle centered">
               <FontAwesomeIcon icon={faArrowsAlt} />
             </div>
-            <button className="remove" onClick={() => onRemoveItem(l.layout.i)}>
+            <button className="remove centered" onClick={() => onRemoveItem(l.layout.i)}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
@@ -111,9 +111,9 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
         preventCollision={!compactType}
         isDroppable={true}
       >
-        {/* <containersStoreContext.Provider value={containerStoreRef}> */}
+        <containersStoreContext.Provider value={containerStoreRef}>
           {generateDOM()}
-        {/* </containersStoreContext.Provider> */}
+        </containersStoreContext.Provider>
       </ResponsiveReactGridLayout>
     </div>
   );

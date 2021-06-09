@@ -53,8 +53,9 @@ export class AuthorizeService {
                 if (this._popUpDisabled) {
                     throw new Error('Popup disabled. Change \'AuthorizeService.js:AuthorizeService._popupDisabled\' to false to enable it.')
                 }
-
+                console.dir("prepopup");
                 const popUpUser = await this.userManager.signinPopup(this.createArguments());
+                console.dir(popUpUser);
                 this.updateState(popUpUser);
                 return this.success(state);
             } catch (popUpError) {
@@ -68,7 +69,9 @@ export class AuthorizeService {
                 // PopUps might be blocked by the user, fallback to redirect
                 try {
                     console.dir('preSignInRedirect');
-                    console.dir(this.createArguments(state));
+                    console.log(this.createArguments(state));
+                    // this sign in redirect is breaking trying to find .well-known/whatever endpoint need to work out disocvery on routing to api.
+                    console.log(this.userManager);
                     await this.userManager.signinRedirect(this.createArguments(state));
                     return this.redirect();
                 } catch (redirectError) {
@@ -197,8 +200,6 @@ export class AuthorizeService {
         }
 
         let settings = response.data;
-        console.log('set1');
-        console.log(settings);
         settings.automaticSilentRenew = true;
         settings.includeIdTokenInSilentRenew = true;
         settings.userStore = new WebStorageStateStore({
@@ -206,6 +207,7 @@ export class AuthorizeService {
         });
 
         this.userManager = new UserManager(settings);
+        console.dir(this.userManager);
 
         this.userManager.events.addUserSignedOut(async () => {
             await this.userManager.removeUser();

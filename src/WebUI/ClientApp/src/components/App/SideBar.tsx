@@ -6,6 +6,8 @@ import Button from "@material-ui/core/Button";
 import { v4 as uuidv4 } from "uuid";
 import { BaseContainer, ComponentType } from "../../models/models";
 import { ContainersStore } from "../../store/containersStore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles({
   list: {
@@ -92,8 +94,10 @@ const SideBar = (props: sideBarProps) => {
           // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
           onDragStart={(e) => e.dataTransfer.setData("text/plain", "")}
         >
-          (Drag me!)
-          <button onClick={() => addControl(c)}>{ComponentType[c]}</button>
+          <button onClick={() => addControl(c)}>
+            {ComponentType[c]}
+            <FontAwesomeIcon style={{marginLeft: '1.5em'}} icon={faPlus} />
+          </button>
         </div>
       ))}
     </div>

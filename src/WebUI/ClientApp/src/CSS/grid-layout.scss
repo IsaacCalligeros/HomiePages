@@ -1,3 +1,5 @@
+@use './colours.scss' as colours;
+
 .dropable-element {
     width: 150px;
     text-align: center;
@@ -20,12 +22,20 @@
   z-index: 5;
 
   .remove {
-    margin: 0.2em;
-    background-color: red;
+    width: 2em;
+    height: 2em;
+    
+    &:hover {
+      background-color: colours.$red;
+    }
   }
   .drag-handle {
-    margin: 0.2em;
-    background-color: gray;
+    width: 2em;
+    height: 2em;
+
+    &:hover {
+      background-color: colours.$blue;
+    }
   }
 }
 }
