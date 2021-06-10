@@ -47,8 +47,12 @@ namespace HomiePages.Infrastructure
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddIdentityServer()
+            services.AddIdentityServer(options =>
+                {
+                    options.IssuerUri = "https://app.homeypages.com";
+                })
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
