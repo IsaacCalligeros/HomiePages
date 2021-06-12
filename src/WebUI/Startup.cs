@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using HomiePages.Infrastructure.Helpers;
 using System;
 using IdentityServer4.Extensions;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace HomiePages.WebUI
 {
@@ -117,6 +118,15 @@ namespace HomiePages.WebUI
 
             app.UseCors();
 
+            var fordwardedHeaderOptions = new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            };
+            fordwardedHeaderOptions.KnownNetworks.Clear();
+            fordwardedHeaderOptions.KnownProxies.Clear();
+            
+            app.UseForwardedHeaders(fordwardedHeaderOptions);
+
             app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
             app.UseDefaultFiles();
@@ -146,6 +156,8 @@ namespace HomiePages.WebUI
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            
 
             app.UseSpa(spa =>
             {
