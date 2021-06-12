@@ -49,7 +49,10 @@ namespace HomiePages.Infrastructure
 
             services.AddIdentityServer(options =>
                 {
-                    options.IssuerUri = "https://app.homeypages.com";
+                    if (!configuration.GetValue<bool>("DevelopmentMode"))
+                    {
+                        options.IssuerUri = "https://app.homeypages.com";
+                    }
                 })
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
