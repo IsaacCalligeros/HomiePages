@@ -14,6 +14,10 @@ namespace HomiePages.Application.Common.Interfaces
         DbSet<Portfolio> Portfolios { get; set; }
         DbSet<Layout> Layouts { get; set; }
 
+        DbSet<ToDo> ToDos { get; set; }
+        DbSet<ToDoItem> ToDoItems { get; set; }
+        DbSet<ToDoType> ToDoTypes { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

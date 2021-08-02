@@ -54,7 +54,7 @@ const News = () => {
               <td>
                 {article.author}
                 <br />
-                <a href={article.url} rel="noopener noreferrer" target="_blank">{article.url?.split(".com")[0]}</a>
+                <a href={article?.url || ''} rel="noopener noreferrer" target="_blank">{article.url?.split(".com")[0]}</a>
               </td>
               <td>{article.description}</td>
             </tr>

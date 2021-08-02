@@ -13,6 +13,8 @@ namespace HomiePages.Application.RepositoryInterfaces
         IContainerRepository Containers { get; }
         IPortfolioRepository Portfolios { get; }
         ILayoutRepository Layouts { get; }
+        IToDoRepository ToDos { get; }
+        IToDoItemRepository ToDoItems { get; }
 
         Task<bool> SaveAsync(string savingEntity);
         Task<bool> SaveAsync();

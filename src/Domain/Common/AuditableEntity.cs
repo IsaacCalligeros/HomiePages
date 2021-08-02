@@ -6,7 +6,7 @@ namespace HomiePages.Domain.Common
     public abstract class AuditableEntity
     {
         [JsonIgnore]
-        public DateTime Created { get; set; }
+        public DateTime? Created { get; set; }
         [JsonIgnore]
         public string CreatedBy { get; set; }
         [JsonIgnore]

@@ -11,7 +11,9 @@ namespace HomiePages.Application.RepositoryInterfaces
         public void Create(T entity);
         public void CreateRange(IEnumerable<T> entities);
         void Delete(T entity);
+#pragma warning disable CS0693 // Type parameter has the same name as the type parameter from outer type
         void DeleteById<T>(object id) where T : class;
+#pragma warning restore CS0693 // Type parameter has the same name as the type parameter from outer type
         void DeleteRange(IEnumerable<T> entities);
         Task<bool> SaveAll();
         public IQueryable<T> FindAll();

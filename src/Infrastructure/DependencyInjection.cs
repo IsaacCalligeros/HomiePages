@@ -35,6 +35,7 @@ namespace HomiePages.Infrastructure
             services.AddScoped<IContainerService, ContainerService>();
             services.AddScoped<IEquityService, EquityService>();
             services.AddScoped<IPortfolioService, PortfolioService>();
+            services.AddScoped<IToDoService, ToDoService>();
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 

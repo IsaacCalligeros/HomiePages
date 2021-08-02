@@ -93,7 +93,7 @@ export class Login extends Component {
                 throw new Error('Should not redirect.');
             case AuthenticationResultStatus.Success:
                 console.dir(this.getReturnUrl(result.state));
-                await this.navigateToReturnUrl(this.getReturnUrl(result.state) + 'home');
+                await this.navigateToReturnUrl(this.getReturnUrl(result.state));
                 break;
             case AuthenticationResultStatus.Fail:
                 this.setState({ message: result.message });

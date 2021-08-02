@@ -9,8 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { BaseContainer, ComponentType } from "../../models/models";
 import { ContainersStore } from "../../store/containersStore";
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 import { PortfolioComponent } from "../Portfolio/Portfolio";
+import { ToDoComponent } from "../Todo/ToDo";
 // import { containersStoreContext } from "../../store/containerStoreContext";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -70,7 +71,7 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
     return _.map(layouts.lg, (l) => {
       return (
         <div
-          key={l.layout.i}
+          key={l.layout?.i}
           className="control-container"
           data-grid={l.layout}
         >
@@ -78,15 +79,14 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
             <div className="drag-handle centered">
               <FontAwesomeIcon icon={faArrowsAlt} />
             </div>
-            <button className="remove centered" onClick={() => onRemoveItem(l.layout.i)}>
+            <button className="remove centered" onClick={() => onRemoveItem(l.layout?.i)}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
             {l.componentType === ComponentType.Weather && <Weather></Weather>}
             {l.componentType === ComponentType.News && <News></News>}
-            {l.componentType === ComponentType.Portfolio && (
-              <PortfolioComponent containerId={l.containerId}></PortfolioComponent>
-            )}
+            {l.componentType === ComponentType.Portfolio && (<PortfolioComponent containerId={l.containerId}></PortfolioComponent>)}
+            {l.componentType === ComponentType.ToDo && (<ToDoComponent containerId={l.containerId}></ToDoComponent>)}
         </div>
       );
     });

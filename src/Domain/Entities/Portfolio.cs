@@ -11,11 +11,6 @@ namespace HomiePages.Domain.Entities
     {
         public int Id { get; set; }
         public string UserId { get; set; }
-
-        [ForeignKey("Container")]
-        public long ContainerId { get; set; }
-        public BaseContainer Container { get; set; }
-
         public virtual ICollection<Equity> Equities { get; set; } = new List<Equity>();
     }
 }

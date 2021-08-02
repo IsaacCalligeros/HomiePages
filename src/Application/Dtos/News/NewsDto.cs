@@ -17,6 +17,7 @@ namespace HomiePages.Application.Dtos.News
         public long TotalResults { get; set; }
 
         [JsonProperty("articles")]
+        [JsonRequired]
         public List<Article> Articles { get; set; }
     }
 

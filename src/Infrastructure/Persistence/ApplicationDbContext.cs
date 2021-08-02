@@ -38,6 +38,9 @@ namespace HomiePages.Infrastructure.Persistence
         public DbSet<BaseContainer> Containers { get; set; }
         public DbSet<Portfolio> Portfolios { get; set; }
         public DbSet<Layout> Layouts { get; set; }
+        public DbSet<ToDo> ToDos { get; set; }
+        public DbSet<ToDoItem> ToDoItems { get; set; }
+        public DbSet<ToDoType> ToDoTypes { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

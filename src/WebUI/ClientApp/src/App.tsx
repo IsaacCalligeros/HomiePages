@@ -11,7 +11,7 @@ import "../src/CSS/custom.scss";
 import { Switch } from "react-router-dom";
 import { NavMenu } from "./components/App/NavMenu";
 import { ContainersStore } from "./store/containersStore";
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 
 const App: React.FC = observer(() => {
     const HomeComponent = () => {

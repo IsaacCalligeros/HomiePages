@@ -16,6 +16,8 @@ namespace HomiePages.Infrastructure.Repository
         private IContainerRepository _container;
         private IPortfolioRepository _portfolio;
         private ILayoutRepository _layout;
+        private IToDoRepository _toDo;
+        private IToDoItemRepository _toDoItems;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -100,6 +102,32 @@ namespace HomiePages.Infrastructure.Repository
                 }
 
                 return _portfolio;
+            }
+        }
+
+        public IToDoRepository ToDos
+        {
+            get
+            {
+                if (_toDo == null)
+                {
+                    _toDo = new ToDoRepository(_dataContext);
+                }
+
+                return _toDo;
+            }
+        }
+
+        public IToDoItemRepository ToDoItems
+        {
+            get
+            {
+                if (_toDoItems == null)
+                {
+                    _toDoItems = new ToDoItemRepository(_dataContext);
+                }
+
+                return _toDoItems;
             }
         }
 

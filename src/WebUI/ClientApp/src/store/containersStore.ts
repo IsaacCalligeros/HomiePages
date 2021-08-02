@@ -30,7 +30,7 @@ export class ContainersStore {
     var res = await this.containersService.DeleteContainer(i);
     if (res) {
       this.setContainers(
-        _.reject(this.containers, (l) => l.layout.i === i.toString())
+        _.reject(this.containers, (l) => l.layout?.i === i.toString())
       );
     }
   };
@@ -54,7 +54,7 @@ export class ContainersStore {
   @action updateLayouts = (layouts: Layout[]) => {
     this.containers.forEach(
       (c) =>
-        (c.layout = layouts[layouts.findIndex((lo) => lo.i === c.layout.i)])
+        (c.layout = layouts[layouts.findIndex((lo) => lo.i === c.layout?.i)])
     );
     this.updateContainers(this.containers);
   };

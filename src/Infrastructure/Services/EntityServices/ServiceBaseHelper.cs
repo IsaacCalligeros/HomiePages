@@ -13,7 +13,7 @@ namespace HomiePages.Infrastructure.Services.EntityServices
     {
         private readonly IRepositoryWrapper _repo;
         //private readonly IRepository<T> _implementedRepo;
-
+        //TODO: come back to this i like the RepoWrapper but maybe generic repo<T> is a nicer option.
         public ServiceBaseHelper(IRepositoryWrapper repo)
         {
             _repo = repo;

@@ -23,7 +23,8 @@ namespace HomiePages.Domain.Enums
         {
             News,
             Weather,
-            Portfolio
+            Portfolio,
+            ToDo,
 
         }
     }

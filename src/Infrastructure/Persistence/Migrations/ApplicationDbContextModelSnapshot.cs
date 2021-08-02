@@ -49,7 +49,7 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                         .HasColumnType("integer")
                         .UseIdentityByDefaultColumn();
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime?>("Created")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("CreatedBy")
@@ -143,6 +143,87 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                     b.HasIndex("ContainerId");
 
                     b.ToTable("Portfolios");
+                });
+
+            modelBuilder.Entity("HomiePages.Domain.Entities.ToDo", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<long>("ContainerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContainerId");
+
+                    b.ToTable("ToDos");
+                });
+
+            modelBuilder.Entity("HomiePages.Domain.Entities.ToDoItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<DateTime?>("CompletionDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("ToDoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ToDoText")
+                        .HasColumnType("text");
+
+                    b.Property<long?>("ToDoTypeId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ToDoId");
+
+                    b.HasIndex("ToDoTypeId");
+
+                    b.ToTable("ToDoItems");
+                });
+
+            modelBuilder.Entity("HomiePages.Domain.Entities.ToDoType", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Type")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ToDoTypes");
                 });
 
             modelBuilder.Entity("HomiePages.Domain.Entities.Weather", b =>
@@ -512,6 +593,30 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                     b.Navigation("Container");
                 });
 
+            modelBuilder.Entity("HomiePages.Domain.Entities.ToDo", b =>
+                {
+                    b.HasOne("HomiePages.Domain.Entities.BaseContainer", "Container")
+                        .WithMany()
+                        .HasForeignKey("ContainerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Container");
+                });
+
+            modelBuilder.Entity("HomiePages.Domain.Entities.ToDoItem", b =>
+                {
+                    b.HasOne("HomiePages.Domain.Entities.ToDo", null)
+                        .WithMany("Items")
+                        .HasForeignKey("ToDoId");
+
+                    b.HasOne("HomiePages.Domain.Entities.ToDoType", "ToDoType")
+                        .WithMany()
+                        .HasForeignKey("ToDoTypeId");
+
+                    b.Navigation("ToDoType");
+                });
+
             modelBuilder.Entity("HomiePages.Domain.Entities.Weather", b =>
                 {
                     b.HasOne("HomiePages.Domain.Entities.BaseContainer", "Container")
@@ -577,6 +682,11 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("HomiePages.Domain.Entities.Portfolio", b =>
                 {
                     b.Navigation("Equities");
+                });
+
+            modelBuilder.Entity("HomiePages.Domain.Entities.ToDo", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

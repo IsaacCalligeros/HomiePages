@@ -30,11 +30,11 @@ export class PortfolioStore {
   };
 
   @action addToPortfolio = async (newEquity: EquityModel) => {
-    var res = await this.equityService.getCompanyFinancials(newEquity.ticker);
-    newEquity.currentPrice = res.latestPrice;
-    newEquity.change = res.change;
+    var res = await this.equityService.getCompanyFinancials(newEquity.ticker || "");
+    newEquity.currentPrice = res.latestPrice || 0;
+    newEquity.change = res.change || 0;
     newEquity.portfolioId = this.portfolio.id;
-    this.portfolio.equities.push(newEquity);
+    this.portfolio.equities?.push(newEquity);
     this.equityService.AddEquity(newEquity);
   };
 
@@ -42,7 +42,7 @@ export class PortfolioStore {
     var res = await this.equityService.deleteEquity(id);
     if (res)
     {
-      this.portfolio.equities = this.portfolio.equities.filter(e => e.id !== id);
+      this.portfolio.equities = this.portfolio.equities?.filter(e => e.id !== id) || null;
     }
     //otherwise failed
   }

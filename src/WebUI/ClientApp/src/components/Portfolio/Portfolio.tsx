@@ -71,7 +71,7 @@ const PortfolioComponent = (props: PortfolioProps) => {
             </tr>
           </thead>
           <tbody>
-            {portfolioStore.portfolio.equities.map((e, idx) => (
+            {portfolioStore.portfolio?.equities?.map((e, idx) => (
               <tr key={`equity-${idx}`}>
                 <td>{e.ticker}</td>
                 <td>{e.numberHeld}</td>

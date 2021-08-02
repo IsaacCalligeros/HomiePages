@@ -20,6 +20,7 @@ using HomiePages.Infrastructure.Helpers;
 using System;
 using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
+using System.Text.Json.Serialization;
 
 namespace HomiePages.WebUI
 {

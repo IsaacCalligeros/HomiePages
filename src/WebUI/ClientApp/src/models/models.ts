@@ -11,14 +11,14 @@
 
 export interface BaseContainer {
     containerId: number;
-    userId: string;
-    layoutId: string;
-    layout: Layout;
+    userId: string | null;
+    layoutId: string | null;
+    layout: Layout | null;
     componentType: ComponentType;
 }
 
 export interface Layout {
-    i: string;
+    i: string | null;
     h: number;
     w: number;
     x: number;
@@ -29,18 +29,19 @@ export enum ComponentType {
     News = 0,
     Weather = 1,
     Portfolio = 2,
+    ToDo = 3,
 }
 
 export interface AuditableEntity {
-    created: Date;
-    createdBy: string;
-    lastModified: Date;
-    lastModifiedBy: string;
+    created: Date | null;
+    createdBy: string | null;
+    lastModified: Date | null;
+    lastModifiedBy: string | null;
 }
 
 export interface Equity extends AuditableEntity {
     id: number;
-    ticker: string;
+    ticker: string | null;
     type: EquityType;
     numberHeld: number;
     purchasePrice: number;
@@ -53,102 +54,102 @@ export enum EquityType {
 }
 
 export interface Company {
-    ticker: string;
-    Company: string;
-    listingDate: Date;
-    industry: string;
+    ticker: string | null;
+    Company: string | null;
+    listingDate: Date | null;
+    industry: string | null;
 }
 
 export interface Quote {
-    symbol: string;
-    companyName: string;
-    primaryExchange: string;
-    calculationPrice: string;
-    open: number;
-    openTime: number;
-    openSource: string;
-    close: number;
-    closeTime: number;
-    closeSource: string;
-    high: number;
-    highTime: number;
-    highSource: string;
-    low: number;
-    lowTime: number;
-    lowSource: string;
-    latestPrice: number;
-    latestSource: string;
-    latestTime: string;
-    latestUpdate: number;
-    latestVolume: number;
-    iexRealtimePrice: number;
-    iexRealtimeSize: number;
-    iexLastUpdated: number;
-    delayedPrice: number;
-    delayedPriceTime: number;
-    oddLotDelayedPrice: number;
-    oddLotDelayedPriceTime: number;
-    extendedPrice: number;
-    extendedChange: number;
-    extendedChangePercent: number;
-    extendedPriceTime: number;
-    previousClose: number;
-    previousVolume: number;
-    change: number;
-    changePercent: number;
-    volume: number;
-    iexMarketPercent: number;
-    iexVolume: number;
-    avgTotalVolume: number;
-    iexBidPrice: number;
-    iexBidSize: number;
-    iexAskPrice: number;
-    iexAskSize: number;
-    iexOpen: number;
-    iexOpenTime: number;
-    iexClose: number;
-    iexCloseTime: number;
-    marketCap: number;
-    peRatio: number;
-    week52High: number;
-    week52Low: number;
-    ytdChange: number;
-    lastTradeTime: number;
+    symbol: string | null;
+    companyName: string | null;
+    primaryExchange: string | null;
+    calculationPrice: string | null;
+    open: number | null;
+    openTime: number | null;
+    openSource: string | null;
+    close: number | null;
+    closeTime: number | null;
+    closeSource: string | null;
+    high: number | null;
+    highTime: number | null;
+    highSource: string | null;
+    low: number | null;
+    lowTime: number | null;
+    lowSource: string | null;
+    latestPrice: number | null;
+    latestSource: string | null;
+    latestTime: string | null;
+    latestUpdate: number | null;
+    latestVolume: number | null;
+    iexRealtimePrice: number | null;
+    iexRealtimeSize: number | null;
+    iexLastUpdated: number | null;
+    delayedPrice: number | null;
+    delayedPriceTime: number | null;
+    oddLotDelayedPrice: number | null;
+    oddLotDelayedPriceTime: number | null;
+    extendedPrice: number | null;
+    extendedChange: number | null;
+    extendedChangePercent: number | null;
+    extendedPriceTime: number | null;
+    previousClose: number | null;
+    previousVolume: number | null;
+    change: number | null;
+    changePercent: number | null;
+    volume: number | null;
+    iexMarketPercent: number | null;
+    iexVolume: number | null;
+    avgTotalVolume: number | null;
+    iexBidPrice: number | null;
+    iexBidSize: number | null;
+    iexAskPrice: number | null;
+    iexAskSize: number | null;
+    iexOpen: number | null;
+    iexOpenTime: number | null;
+    iexClose: number | null;
+    iexCloseTime: number | null;
+    marketCap: number | null;
+    peRatio: number | null;
+    week52High: number | null;
+    week52Low: number | null;
+    ytdChange: number | null;
+    lastTradeTime: number | null;
     isUSMarketOpen: boolean;
-    sector: string;
+    sector: string | null;
 }
 
 export interface NewsDto {
-    status: string;
+    status: string | null;
     totalResults: number;
     articles: Article[];
 }
 
 export interface Article {
-    source: Source;
-    author: string;
-    title: string;
-    description: string;
-    url: string;
-    urlToImage: string;
+    source: Source | null;
+    author: string | null;
+    title: string | null;
+    description: string | null;
+    url: string | null;
+    urlToImage: string | null;
     publishedAt: Date;
-    content: string;
+    content: string | null;
 }
 
 export interface Source {
-    id: string;
-    name: string;
+    id: string | null;
+    name: string | null;
 }
 
 export interface PortfolioModel {
     equities: EquityModel[];
     id: number;
-    userId: string;
+    userId: string | null;
 }
 
 export interface EquityModel {
     id: number;
-    ticker: string;
+    ticker: string | null;
     type: EquityType;
     numberHeld: number;
     purchasePrice: number;
@@ -159,35 +160,64 @@ export interface EquityModel {
 
 export interface Control {
     containerId: number;
-    container: BaseContainer;
+    container: BaseContainer | null;
 }
 
 export interface Portfolio extends Control {
     id: number;
-    userId: string;
-    containerId: number;
-    container: BaseContainer;
-    equities: Equity[];
+    userId: string | null;
+    equities: Equity[] | null;
+}
+
+export interface ToDoModel {
+    items: ToDoItemModel[];
+    id: number;
+    userId: string | null;
+}
+
+export interface ToDoItemModel {
+    id: number;
+    toDoText: string | null;
+    dueDate: Date | null;
+    completionDate: Date | null;
+    order: number;
+    toDoTypeId: number | null;
+    toDoType: ToDoType | null;
+}
+
+export interface ToDoType {
+    id: number;
+    type: string | null;
+}
+
+export interface ToDoItem extends AuditableEntity {
+    id: number;
+    toDoText: string | null;
+    dueDate: Date | null;
+    completionDate: Date | null;
+    order: number;
+    toDoTypeId: number | null;
+    toDoType: ToDoType | null;
 }
 
 export interface WeatherAndForecast {
-    currentWeather: CurrentWeather;
-    weather: WeatherDto;
+    currentWeather: CurrentWeather | null;
+    weather: WeatherDto | null;
 }
 
 export interface CurrentWeather {
-    coord: Coord;
-    weather: WeatherData[];
-    base: string;
-    main: DayTempDetails;
+    coord: Coord | null;
+    weather: WeatherData[] | null;
+    base: string | null;
+    main: DayTempDetails | null;
     visibility: number;
-    wind: Wind;
-    clouds: Clouds;
+    wind: Wind | null;
+    clouds: Clouds | null;
     dt: number;
-    sys: DayDetails;
+    sys: DayDetails | null;
     timezone: number;
     id: number;
-    name: string;
+    name: string | null;
     cod: number;
 }
 
@@ -198,9 +228,9 @@ export interface Coord {
 
 export interface WeatherData {
     id: number;
-    main: string;
-    description: string;
-    icon: string;
+    main: string | null;
+    description: string | null;
+    icon: string | null;
 }
 
 export interface DayTempDetails {
@@ -225,7 +255,7 @@ export interface Clouds {
 export interface DayDetails {
     type: number;
     id: number;
-    country: string;
+    country: string | null;
     sunrise: number;
     sunriseDate: Date;
     sunset: number;
@@ -236,21 +266,21 @@ export interface WeatherDto {
     cod: number;
     message: number;
     cnt: number;
-    list: Data[];
-    city: CityDetails;
+    list: Data[] | null;
+    city: CityDetails | null;
 }
 
 export interface Data {
     dt: number;
-    main: MainClass;
-    weather: WeatherElement[];
-    clouds: Clouds;
-    wind: Wind;
+    main: MainClass | null;
+    weather: WeatherElement[] | null;
+    clouds: Clouds | null;
+    wind: Wind | null;
     visibility: number;
     pop: number;
-    sys: Sys;
+    sys: Sys | null;
     dt_txt: Date;
-    rain: Rain;
+    rain: Rain | null;
 }
 
 export interface MainClass {
@@ -267,13 +297,13 @@ export interface MainClass {
 
 export interface WeatherElement {
     id: number;
-    main: string;
-    description: string;
-    icon: string;
+    main: string | null;
+    description: string | null;
+    icon: string | null;
 }
 
 export interface Sys {
-    pod: string;
+    pod: string | null;
 }
 
 export interface Rain {
@@ -282,9 +312,9 @@ export interface Rain {
 
 export interface CityDetails {
     id: number;
-    name: string;
-    coord: Coord2;
-    country: string;
+    name: string | null;
+    coord: Coord2 | null;
+    country: string | null;
     population: number;
     timezone: number;
     sunrise: number;
@@ -302,7 +332,7 @@ export interface WeatherForecast {
     date: Date;
     temperatureC: number;
     temperatureF: number;
-    summary: string;
+    summary: string | null;
 }
 
 export interface FileResponse {
