@@ -1,0 +1,1 @@
+* See how nullable strings with nswag goes, really not sure if i like this.
