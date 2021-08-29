@@ -9,7 +9,11 @@ namespace HomiePages.Application.ServiceInterfaces
 {
     public interface IServiceBaseHelper<T> where T : class
     {
-        //public T GetBy(Expression<Func<T, bool>> expression);
-        //public bool DeleteBy(Expression<Func<T, bool>> expression);
+        public void Create(T entity);
+        public void CreateRange(IEnumerable<T> entities);
+        public IQueryable<T> GetBy(Expression<Func<T, bool>> expression);
+        public bool DeleteBy(Expression<Func<T, bool>> expression);
+        public bool DeleteById(int id);
+        public bool DeleteById(long id);
     }
 }

@@ -1,4 +1,5 @@
 using HomiePages.Domain.Common;
+using HomiePages.Domain.Entities.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HomiePages.Domain.Entities
 {
-    public class ToDoItem : AuditableEntity
+    public class ToDoItem : AuditableEntity, IOwnedEntity
     {
         public long Id { get; set; }
         public string ToDoText { get; set; }
@@ -23,9 +24,11 @@ namespace HomiePages.Domain.Entities
 
         [ForeignKey("ToDo")]
         [JsonIgnore]
-        public long? ToDoId { get; set; }
+        public long ToDoId { get; set; }
         [JsonIgnore]
         public ToDo ToDo { get; set; }
+
+        public string UserId => ToDo?.UserId;
 
     }
 }

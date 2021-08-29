@@ -18,6 +18,9 @@ namespace HomiePages.Application.Common.Interfaces
         DbSet<ToDoItem> ToDoItems { get; set; }
         DbSet<ToDoType> ToDoTypes { get; set; }
 
+        DbSet<Notes> Notes { get; set; }
+        DbSet<NoteItem> NoteItems { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

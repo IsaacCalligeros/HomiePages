@@ -25,7 +25,7 @@ namespace HomiePages.Domain.Enums
             Weather,
             Portfolio,
             ToDo,
-
+            Notes,
         }
     }
 }

@@ -4,6 +4,7 @@ using HomiePages.Application.RepositoryInterfaces;
 using HomiePages.Application.ServiceInterfaces;
 using HomiePages.Domain.Entities;
 using HomiePages.Infrastructure.Helpers;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,8 @@ namespace HomiePages.Infrastructure.Services.EntityServices
         private readonly IRepositoryWrapper _repo;
         private readonly IMapper _mapper;
 
-        public EquityService(IRepositoryWrapper repo, IMapper mapper) : base(repo)
+        public EquityService(IRepositoryWrapper repo, IMapper mapper, IHttpContextAccessor httpContextAccessor) 
+            : base(repo, repo.Equities, httpContextAccessor)
         {
             _repo = repo;
             _mapper = mapper;

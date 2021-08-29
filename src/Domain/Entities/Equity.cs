@@ -3,13 +3,14 @@ using static HomiePages.Domain.Enums.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HomiePages.Domain.Common;
+using HomiePages.Domain.Entities.Interfaces;
 
 namespace HomiePages.Domain.Entities
 {
-    public class Equity : AuditableEntity
+    public class Equity : AuditableEntity, IOwnedEntity
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Ticker { get; set; }
         public EquityType Type { get; set; }
         public float NumberHeld { get; set; }
@@ -19,5 +20,7 @@ namespace HomiePages.Domain.Entities
 
         [ForeignKey("PortfolioId")]
         protected Portfolio Portfolio { get; set; }
+
+        public string UserId => Portfolio.UserId;
     }
 }

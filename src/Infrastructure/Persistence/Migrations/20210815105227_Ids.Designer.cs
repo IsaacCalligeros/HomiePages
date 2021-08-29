@@ -3,15 +3,17 @@ using System;
 using HomiePages.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HomiePages.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210815105227_Ids")]
+    partial class Ids
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("HomiePages.Domain.Entities.BaseContainer", b =>
                 {
-                    b.Property<long>("ContainerId")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityByDefaultColumn();
@@ -35,7 +37,7 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
-                    b.HasKey("ContainerId");
+                    b.HasKey("Id");
 
                     b.HasIndex("LayoutId");
 

@@ -2,6 +2,7 @@
 using HomiePages.Application.RepositoryInterfaces;
 using HomiePages.Application.ServiceInterfaces;
 using HomiePages.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace HomiePages.Infrastructure.Services.EntityServices
         private readonly IRepositoryWrapper _repo;
         private readonly IMapper _mapper;
 
-        public ContainerService(IRepositoryWrapper repo, IMapper mapper) :base(repo)
+        public ContainerService(IRepositoryWrapper repo, IMapper mapper, IHttpContextAccessor httpContextAccessor) 
+            : base(repo, repo.Containers, httpContextAccessor)
         {
             _repo = repo;
             _mapper = mapper;

@@ -30,6 +30,7 @@ export enum ComponentType {
     Weather = 1,
     Portfolio = 2,
     ToDo = 3,
+    Notes = 4,
 }
 
 export interface AuditableEntity {
@@ -46,6 +47,7 @@ export interface Equity extends AuditableEntity {
     numberHeld: number;
     purchasePrice: number;
     portfolioId: number;
+    userId: string | null;
 }
 
 export enum EquityType {
@@ -141,6 +143,24 @@ export interface Source {
     name: string | null;
 }
 
+export interface Control {
+    containerId: number;
+    container: BaseContainer | null;
+}
+
+export interface Notes extends Control {
+    id: number;
+    userId: string | null;
+    items: NoteItem[];
+}
+
+export interface NoteItem extends AuditableEntity {
+    id: number;
+    content: string | null;
+    order: number;
+    userId: string | null;
+}
+
 export interface PortfolioModel {
     equities: EquityModel[];
     id: number;
@@ -156,11 +176,6 @@ export interface EquityModel {
     portfolioId: number;
     currentPrice: number;
     change: number;
-}
-
-export interface Control {
-    containerId: number;
-    container: BaseContainer | null;
 }
 
 export interface Portfolio extends Control {
@@ -198,6 +213,7 @@ export interface ToDoItem extends AuditableEntity {
     order: number;
     toDoTypeId: number | null;
     toDoType: ToDoType | null;
+    userId: string | null;
 }
 
 export interface WeatherAndForecast {

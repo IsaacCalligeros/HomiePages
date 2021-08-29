@@ -2,6 +2,7 @@
 using HomiePages.Application.RepositoryInterfaces;
 using HomiePages.Application.ServiceInterfaces;
 using HomiePages.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,7 +18,8 @@ namespace HomiePages.Infrastructure.Services.EntityServices
         private readonly IRepositoryWrapper _repo;
         private readonly IMapper _mapper;
 
-        public PortfolioService(IRepositoryWrapper repo, IMapper mapper) : base(repo)
+        public PortfolioService(IRepositoryWrapper repo, IMapper mapper, IHttpContextAccessor httpContextAccessor) 
+            : base(repo, repo.Portfolios, httpContextAccessor)
         {
             _repo = repo;
             _mapper = mapper;
@@ -25,7 +27,7 @@ namespace HomiePages.Infrastructure.Services.EntityServices
 
         public Portfolio GetPortfolio(Expression<Func<Portfolio, bool>> expression)
         {
-            return _repo.Portfolios.FindByCondition(expression).Include(t => t.Equities).FirstOrDefault();
+            return GetBy(expression).Include(t => t.Equities).FirstOrDefault();
         }
 
         public Portfolio FindOrCreate(string userId, long containerId)
@@ -57,8 +59,7 @@ namespace HomiePages.Infrastructure.Services.EntityServices
 
         public bool DeletePortfolio(int portfolioId)
         {
-            _repo.Portfolios.DeleteById<Portfolio>(portfolioId);
-            return _repo.SaveChanges();
+            return DeleteById(portfolioId);
         }
 
     }

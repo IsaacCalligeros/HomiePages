@@ -9,7 +9,7 @@ namespace HomiePages.WebUI.Models.APIModels
 {
     public class EquityModel
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Ticker { get; set; }
         public EquityType Type { get; set; }
         public float NumberHeld { get; set; }

@@ -1,39 +1,82 @@
 ﻿using HomiePages.Application.RepositoryInterfaces;
 using HomiePages.Application.ServiceInterfaces;
+using HomiePages.Domain.Entities.Interfaces;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace HomiePages.Infrastructure.Services.EntityServices
 {
-    public class ServiceBaseHelper<T> : IServiceBaseHelper<T> where T : class
+    public class ServiceBaseHelper<T> : IServiceBaseHelper<T> where T : class, IOwnedEntity
     {
         private readonly IRepositoryWrapper _repo;
-        //private readonly IRepository<T> _implementedRepo;
-        //TODO: come back to this i like the RepoWrapper but maybe generic repo<T> is a nicer option.
-        public ServiceBaseHelper(IRepositoryWrapper repo)
+        private readonly IRepository<T> _implementedRepo;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public ServiceBaseHelper(IRepositoryWrapper repo, IRepository<T> implementedRepo, IHttpContextAccessor httpContextAccessor)
         {
             _repo = repo;
-
-            //var interfaces = typeof(IRepositoryWrapper).GetInterfaces();
-            //var props = _repo.GetType().GetProperties();
-            //var repos = props.Select(t => t.PropertyType);
-            //var implementedRepo = repos.Where(r => r.GetTypeInfo().ImplementedInterfaces.Any(i => i.GenericTypeArguments.Any(t => t == typeof(T)))).FirstOrDefault();
-            //var test = (IRepository<T>)props[0];
+            _implementedRepo = implementedRepo;
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        //public T GetBy(Expression<Func<T, bool>> expression)
-        //{
-        //    return _implementedRepo.FindByCondition(expression).Single();
-        //}
-        //public bool DeleteBy(Expression<Func<T, bool>> expression)
-        //{
-        //    var dbEntity = _implementedRepo.FindByCondition(expression).Single();
-        //    _implementedRepo.Delete(dbEntity);
-        //    return true;
-        //}
+        protected string UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        public IQueryable<T> GetBy(Expression<Func<T, bool>> expression)
+        {
+            return _implementedRepo.FindByCondition(expression);
+        }
+
+        public bool DeleteBy(Expression<Func<T, bool>> expression)
+        {
+            var dbEntity = _implementedRepo.FindByCondition(expression).Single();
+
+            if (dbEntity.UserId != UserId)
+            {
+                return false;
+            }
+
+            _implementedRepo.Delete(dbEntity);
+            return _repo.SaveChanges();
+        }
+
+        public bool DeleteById(int id)
+        {
+            var dbEntity = _implementedRepo.FindById<T>(id);
+            if (dbEntity.UserId != UserId)
+            {
+                return false;
+            }
+
+            _implementedRepo.DeleteById<T>(id);
+
+            return _repo.SaveChanges();
+        }
+
+        public bool DeleteById(long id)
+        {
+            var dbEntity = _implementedRepo.FindByCondition(t => t.Id == id).FirstOrDefault();
+            if (dbEntity.UserId != UserId)
+            {
+                return false;
+            }
+
+            _implementedRepo.DeleteById<T>(id);
+
+            return _repo.SaveChanges();
+        }
+
+        public void Create(T entity)
+        {
+            _implementedRepo.Create(entity);
+        }
+
+        public void CreateRange(IEnumerable<T> entities)
+        {
+            _implementedRepo.CreateRange(entities);
+        }
     }
 }

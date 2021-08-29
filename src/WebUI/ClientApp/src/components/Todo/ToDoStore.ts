@@ -34,7 +34,6 @@ export class ToDoStore {
   };
 
   @action updateToDoItemServerSide = debounce((toDoItem: ToDoItemModel, idx: number) => {
-    console.dir("yoo?");
         this.toDoService
           .UpdateToDoItem(this.containerId, toDoItem)
           .then((res) => {

@@ -18,6 +18,8 @@ namespace HomiePages.Infrastructure.Repository
         private ILayoutRepository _layout;
         private IToDoRepository _toDo;
         private IToDoItemRepository _toDoItems;
+        private INotesRepository _notes;
+        private INotesItemRepository _noteItems;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -128,6 +130,32 @@ namespace HomiePages.Infrastructure.Repository
                 }
 
                 return _toDoItems;
+            }
+        }
+
+        public INotesRepository Notes
+        {
+            get
+            {
+                if (_notes == null)
+                {
+                    _notes = new NotesRepository(_dataContext);
+                }
+
+                return _notes;
+            }
+        }
+
+        public INotesItemRepository NoteItems
+        {
+            get
+            {
+                if (_noteItems == null)
+                {
+                    _noteItems = new NotesItemRepository(_dataContext);
+                }
+
+                return _noteItems;
             }
         }
 

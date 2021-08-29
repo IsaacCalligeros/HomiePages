@@ -22,9 +22,14 @@ namespace HomiePages.WebUI.Controllers
     public class ToDoController : ApiControllerBase
     {
         private readonly IToDoService _toDoService;
-        public ToDoController(IToDoService toDoService)
+        private readonly IToDoItemService _toDoItemService;
+        public ToDoController(
+            IToDoService toDoService,
+            IToDoItemService toDoItemService
+            )
         {
             _toDoService = toDoService;
+            _toDoItemService = toDoItemService;
         }
 
         [HttpPut]
@@ -42,7 +47,7 @@ namespace HomiePages.WebUI.Controllers
         [Route("AddToDoItem/{containerId}")]
         public ToDoItemModel AddToDoItem(ToDoItem toDoItem, long containerId)
         {
-            var item = _toDoService.AddToDoItem(UserId, toDoItem, containerId);
+            var item = _toDoItemService.AddToDoItem(UserId, toDoItem, containerId);
             return new ToDoItemModel(item);
         }
 
@@ -50,7 +55,7 @@ namespace HomiePages.WebUI.Controllers
         [Route("UpdateOrder/{containerId}")]
         public ToDoModel AddToDoItem(List<ToDoItem> toDoItems, long containerId)
         {
-            var item = _toDoService.UpdateToDoItemsOrder(UserId, toDoItems, containerId);
+            var item = _toDoItemService.UpdateToDoItemsOrder(UserId, toDoItems, containerId);
             return new ToDoModel(item);
         }
 
@@ -58,7 +63,7 @@ namespace HomiePages.WebUI.Controllers
         [Route("UpdateToDoItem/{containerId}")]
         public ToDoItemModel UpdateToDoItem(ToDoItem toDoItem, long containerId)
         {
-            var item = _toDoService.UpdateToDoItem(UserId, toDoItem, containerId);
+            var item = _toDoItemService.UpdateToDoItem(UserId, toDoItem, containerId);
             return new ToDoItemModel(item);
         }
 
@@ -66,7 +71,7 @@ namespace HomiePages.WebUI.Controllers
         [Route("DeleteToDoItem/{toDoItemId}")]
         public bool DeleteToDoItem(long toDoItemId)
         {
-            var res = _toDoService.DeleteToDoItem(toDoItemId, UserId);
+            var res = _toDoItemService.DeleteToDoItem(toDoItemId);
             return res;
         }
     }

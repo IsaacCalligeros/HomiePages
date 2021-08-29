@@ -3,15 +3,17 @@ using System;
 using HomiePages.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HomiePages.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210815090426_NotesToDos")]
+    partial class NotesToDos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,9 +46,9 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("HomiePages.Domain.Entities.Equity", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("integer")
                         .UseIdentityByDefaultColumn();
 
                     b.Property<DateTime?>("Created")
@@ -67,9 +69,6 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                     b.Property<int>("PortfolioId")
                         .HasColumnType("integer");
 
-                    b.Property<long?>("PortfolioId1")
-                        .HasColumnType("bigint");
-
                     b.Property<float>("PurchasePrice")
                         .HasColumnType("real");
 
@@ -81,7 +80,7 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PortfolioId1");
+                    b.HasIndex("PortfolioId");
 
                     b.ToTable("Equities");
                 });
@@ -188,9 +187,9 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("HomiePages.Domain.Entities.Portfolio", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("integer")
                         .UseIdentityByDefaultColumn();
 
                     b.Property<long>("ContainerId")
@@ -254,7 +253,7 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("integer");
 
-                    b.Property<long>("ToDoId")
+                    b.Property<long?>("ToDoId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("ToDoText")
@@ -627,7 +626,9 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("HomiePages.Domain.Entities.Portfolio", null)
                         .WithMany("Equities")
-                        .HasForeignKey("PortfolioId1");
+                        .HasForeignKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HomiePages.Domain.Entities.News", b =>
@@ -687,9 +688,7 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("HomiePages.Domain.Entities.ToDo", "ToDo")
                         .WithMany("Items")
-                        .HasForeignKey("ToDoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ToDoId");
 
                     b.HasOne("HomiePages.Domain.Entities.ToDoType", "ToDoType")
                         .WithMany()

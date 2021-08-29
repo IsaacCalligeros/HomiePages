@@ -12,6 +12,7 @@ import { ContainersStore } from "../../store/containersStore";
 import { observer } from "mobx-react";
 import { PortfolioComponent } from "../Portfolio/Portfolio";
 import { ToDoComponent } from "../Todo/ToDo";
+import { Notes } from "../notes/notes";
 // import { containersStoreContext } from "../../store/containerStoreContext";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -87,6 +88,7 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
             {l.componentType === ComponentType.News && <News></News>}
             {l.componentType === ComponentType.Portfolio && (<PortfolioComponent containerId={l.containerId}></PortfolioComponent>)}
             {l.componentType === ComponentType.ToDo && (<ToDoComponent containerId={l.containerId}></ToDoComponent>)}
+            {l.componentType === ComponentType.Notes && <Notes containerId={l.containerId}/>}
         </div>
       );
     });
