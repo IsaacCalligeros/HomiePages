@@ -1,13 +1,12 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@material-ui/core";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import "../../CSS/ToDo.scss";
-import { ToDoStore } from "./ToDoStore";
-import { defaultToDoItem } from "../../models/modelDefaults";
-import { observer } from "mobx-react";
-import { ToDoList } from "./ToDoList";
+import React, { useState, useEffect } from 'react';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from '@material-ui/core';
+import { observer } from 'mobx-react';
+import { ToDoStore } from './ToDoStore';
+import { ToDoList } from './ToDoList';
+import { defaultToDoItem } from '../../models/modelDefaults';
+import '../../CSS/ToDo.scss';
 
 interface ToDoProps {
   containerId: number;
@@ -18,10 +17,10 @@ const ToDoComponent = observer((props: ToDoProps) => {
 
   useEffect(() => {
     store.FindOrCreate();
-  }, [])
-  
+  }, []);
+
   const newToDoItem = () => {
-    if (store.toDo !== null) {      
+    if (store.toDo !== null) {
       store.addToToDoItems(defaultToDoItem(store.toDo.items.length + 1));
     }
   };
@@ -35,9 +34,8 @@ const ToDoComponent = observer((props: ToDoProps) => {
       >
         <FontAwesomeIcon icon={faPlus} />
       </Button>
-      {store.toDo.items &&
-        <ToDoList store={store} />
-      }
+      {store.toDo.items
+        && <ToDoList store={store} />}
     </div>
   );
 });

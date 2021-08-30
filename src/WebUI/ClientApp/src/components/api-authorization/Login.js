@@ -21,7 +21,6 @@ export class Login extends Component {
         const action = this.props.action;
         switch (action) {
             case LoginActions.Login:
-                console.dir(this.getReturnUrl);
                 this.login(this.getReturnUrl());
                 break;
             case LoginActions.LoginCallback:
@@ -65,8 +64,6 @@ export class Login extends Component {
     }
 
     async login(returnUrl) {
-        console.dir("loginMethod");
-        console.dir(returnUrl);
         const state = { returnUrl };
         const result = await authService.signIn(state);
         switch (result.status) {
@@ -92,7 +89,6 @@ export class Login extends Component {
                 // is when we are doing a redirect sign in flow.
                 throw new Error('Should not redirect.');
             case AuthenticationResultStatus.Success:
-                console.dir(this.getReturnUrl(result.state));
                 await this.navigateToReturnUrl(this.getReturnUrl(result.state));
                 break;
             case AuthenticationResultStatus.Fail:

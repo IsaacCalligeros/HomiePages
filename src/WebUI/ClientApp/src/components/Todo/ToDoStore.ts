@@ -1,12 +1,13 @@
-import _, { debounce } from "lodash";
-import { observable, action, runInAction } from "mobx";
-import { ToDoItemModel, ToDoModel } from "../../models/models";
-import { ToDoService } from "../../services/ToDoService";
+import _, { debounce } from 'lodash';
+import { observable, action, runInAction } from 'mobx';
+import { ToDoItemModel, ToDoModel } from '../../models/models';
+import { ToDoService } from '../../services/ToDoService';
 
 export class ToDoStore {
   private readonly toDoService: ToDoService;
 
   @observable toDo: ToDoModel;
+
   @observable containerId: number;
 
   constructor(containerId: number) {
@@ -15,7 +16,7 @@ export class ToDoStore {
     this.toDo = {
       id: 0,
       userId: '',
-      items: []
+      items: [],
     };
   }
 
@@ -26,7 +27,7 @@ export class ToDoStore {
   }
 
   @action updateToDoItem = async (toDoItem: ToDoItemModel) => {
-    const idx = this.toDo?.items?.findIndex((i) => i.id == toDoItem.id);
+    const idx = this.toDo?.items?.findIndex((i) => i.id === toDoItem.id);
     if (this.toDo != null) {
       this.toDo.items[idx] = toDoItem;
       this.updateToDoItemServerSide(toDoItem, idx);
@@ -34,13 +35,13 @@ export class ToDoStore {
   };
 
   @action updateToDoItemServerSide = debounce((toDoItem: ToDoItemModel, idx: number) => {
-        this.toDoService
-          .UpdateToDoItem(this.containerId, toDoItem)
-          .then((res) => {
-            if (this.toDo != null) {
-              this.toDo.items[idx] = res;
-            }
-          });
+    this.toDoService
+      .UpdateToDoItem(this.containerId, toDoItem)
+      .then((res) => {
+        if (this.toDo != null) {
+          this.toDo.items[idx] = res;
+        }
+      });
   }, 2000);
 
   @action addToToDoItems = async (toDoItem: ToDoItemModel) => {
@@ -48,7 +49,7 @@ export class ToDoStore {
       const item = await this.toDoService.AddToDoItem(
         this.containerId,
         toDoItem,
-        this.toDo?.id
+        this.toDo?.id,
       );
       runInAction(() => {
         this.toDo?.items?.push(item);
@@ -57,7 +58,7 @@ export class ToDoStore {
   };
 
   @action deleteItem = async (id: number) => {
-    var res = await this.toDoService.deleteToDoItem(id);
+    const res = await this.toDoService.deleteToDoItem(id);
     if (res) {
       if (this.toDo !== null) {
         this.toDo.items = this.toDo?.items?.filter((e) => e.id !== id) || null;
@@ -68,9 +69,9 @@ export class ToDoStore {
   @action updateToDoItems = async (toDoItems: ToDoItemModel[]) => {
     if (this.toDo !== null) {
       this.toDo.items = toDoItems;
-      var updateedToDo = this.toDoService.UpdateOrder(
+      const updateedToDo = this.toDoService.UpdateOrder(
         this.containerId,
-        toDoItems
+        toDoItems,
       );
     }
   };

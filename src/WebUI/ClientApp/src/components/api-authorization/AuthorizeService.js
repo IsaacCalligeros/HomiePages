@@ -53,7 +53,6 @@ export class AuthorizeService {
                 if (this._popUpDisabled) {
                     throw new Error('Popup disabled. Change \'AuthorizeService.js:AuthorizeService._popupDisabled\' to false to enable it.')
                 }
-                console.dir("prepopup");
                 const popUpUser = await this.userManager.signinPopup(this.createArguments());
                 console.dir(popUpUser);
                 this.updateState(popUpUser);
@@ -68,7 +67,6 @@ export class AuthorizeService {
 
                 // PopUps might be blocked by the user, fallback to redirect
                 try {
-                    console.dir('preSignInRedirect');
                     console.log(this.createArguments(state));
                     // this sign in redirect is breaking trying to find .well-known/whatever endpoint need to work out disocvery on routing to api.
                     console.log(this.userManager);
@@ -188,11 +186,9 @@ export class AuthorizeService {
 
         if (process.env.NODE_ENV !== "development") {
             response = await axios.get("https://app.homeypages.com/api/OidcConfiguration" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
-            console.log(response);
         }
         else {
             response = await axios.get("https://localhost:5001/api/OidcConfiguration" + ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
-            console.dir(response);
         }
 
         if (response.status !== 200) {

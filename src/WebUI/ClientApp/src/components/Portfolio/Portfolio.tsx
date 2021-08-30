@@ -25,7 +25,7 @@ const PortfolioComponent = (props: PortfolioProps) => {
   };
 
   useEffect(() => {
-    
+
   }, [portfolioStore.portfolio.equities]);
 
   const TabPanel = (props: TabPanelProps) => {

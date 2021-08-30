@@ -4,9 +4,6 @@ import authService, { AuthenticationResultStatus } from "./components/api-author
 const location = window.location.toString();
 const publicUrl = new URL(process.env.PUBLIC_URL, location);
 
-console.dir(publicUrl.origin);
-console.dir(process.env.BROWSER_SIDE_URL);
-
 const instance = axios.create({
   baseURL: process.env.BROWSER_SIDE_URL,
   httpsAgent: true
@@ -50,7 +47,6 @@ instance.interceptors.response.use(response => {
   return response;
 }, error => {
  if (error.response.status === 401) {
-   console.dir("refreshin");
   login();
  }
 });

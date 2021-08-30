@@ -1,0 +1,104 @@
+//https://medium.com/@katiemctigue/how-to-create-a-dark-mode-in-sass-609f131a3995
+
+//Light theme
+$light-primary: #EAE7DC;
+$light-secondary: #D8C3A5;
+$light-tertiary: #8E8D8A;
+$light-soft: #E98074;
+$light-accent: #E85A4F;
+$light-text: black;
+
+$light-lighten-primary: lighten($light-primary, 10%);
+$light-lighten-secondary: lighten($light-secondary, 10%);
+$light-lighten-tertiary: lighten($light-tertiary, 10%);
+$light-lighten-soft: lighten($light-soft, 10%);
+$light-lighten-accent: lighten($light-accent, 10%);
+
+$light-darken-primary: darken($light-primary, 10%);
+$light-darken-secondary: darken($light-secondary, 10%);
+$light-darken-tertiary: darken($light-tertiary, 10%);
+$light-darken-soft: darken($light-soft, 10%);
+$light-darken-accent: darken($light-accent, 10%);
+
+//Dark Theme
+$dark-primary: #25274D;
+$dark-secondary: #464866;
+$dark-tertiary: #AAABB8;
+$dark-accent: #2E9CCA;
+$dark-soft: #29648A;
+$dark-text: white;
+
+$dark-lighten-primary: lighten($dark-primary, 10%);
+$dark-lighten-secondary: lighten($dark-secondary, 10%);
+$dark-lighten-tertiary: lighten($dark-tertiary, 10%);
+$dark-lighten-soft: lighten($dark-soft, 10%);
+$dark-lighten-accent: lighten($dark-accent, 10%);
+
+$dark-darken-primary: darken($dark-primary, 10%);
+$dark-darken-secondary: darken($dark-secondary, 10%);
+$dark-darken-tertiary: darken($dark-tertiary, 10%);
+$dark-darken-soft: darken($dark-soft, 10%);
+$dark-darken-accent: darken($dark-accent, 10%);
+
+$bg--light: $light-primary;
+$bg--card--light: $light-secondary;
+$text--light: $light-text;
+$hover--light: $light-soft;
+$border--light: $light-tertiary;
+
+$bg--dark: $dark-primary;
+$bg--card--dark: $dark-secondary;
+$text--dark: $dark-text;
+$hover--dark: $dark-soft;
+$border--dark:$dark-tertiary;
+
+$bg: 'bg';
+$card-bg: 'card-bg';
+$card-border: 'card-border';
+$text: 'text';
+$text-important: 'text-important';
+$text-secondary: 'text-secondary';
+$text-badge: 'text-badge';
+$link: 'link';
+$hover: 'hover';
+$logo: 'logo';
+$logo2: 'logo-2';
+$brand-secondary: 'brand-blue';
+$brand-primary: 'brand-red';
+$border: 'border';
+
+
+$themes: (
+        default: (
+                bg: $bg--light,
+                card-bg: $bg--card--light,
+                text: $text--light,
+                hover: $hover--light,
+                border: $border--light
+        ),
+        dark: (
+                bg: $bg--dark,
+                card-bg: $bg--card--dark,
+                text: $text--dark,
+                hover: $hover--dark,
+                border: $border--dark
+        ),
+);
+
+@mixin themed() {
+    @each $theme, $map in $themes {
+      .theme--#{$theme} & {
+        $theme-map: () !global;
+        @each $key, $submap in $map {
+          $value: map-get(map-get($themes, $theme), '#{$key}');
+          $theme-map: map-merge($theme-map, ($key: $value)) !global;
+        }
+        @content;
+        $theme-map: null !global;
+      }
+    }
+  }
+  
+  @function t($key) {
+    @return map-get($theme-map, $key);
+  }

@@ -1,7 +1,15 @@
-﻿a.navbar-brand {
+﻿@import "./_color-themes";
+
+a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+}
+
+.navbar {
+  @include themed() {
+    background: t($bg);
+  }
 }
 
 html {
