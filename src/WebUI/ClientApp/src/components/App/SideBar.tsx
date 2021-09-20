@@ -7,11 +7,11 @@ import { v4 as uuidv4 } from "uuid";
 import { BaseContainer, ComponentType } from "../../models/models";
 import { ContainersStore } from "../../store/containersStore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faChevronRight, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles({
   list: {
-    width: 250,
+    width: 200,
   },
   fullList: {
     width: "auto",
@@ -88,6 +88,7 @@ const SideBar = (props: sideBarProps) => {
           draggable={true}
           unselectable="on"
           key={c}
+          style={{ margin: '1em'}}
           // this is a hack for firefox
           // Firefox requires some kind of initialization
           // which we can do by adding this attribute
@@ -104,10 +105,14 @@ const SideBar = (props: sideBarProps) => {
   );
 
   return (
-    <div>
+    <div
+      className="sidebar"
+    >
       {(["left"] as Anchor[]).map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>Sidebar</Button>
+          <Button onClick={toggleDrawer(anchor, true)}>
+            {state[anchor] ? <FontAwesomeIcon icon={faChevronLeft} /> : <FontAwesomeIcon icon={faChevronRight} /> }
+          </Button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}

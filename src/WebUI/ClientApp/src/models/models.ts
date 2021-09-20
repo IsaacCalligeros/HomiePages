@@ -161,6 +161,18 @@ export interface NoteItem extends AuditableEntity {
     userId: string | null;
 }
 
+export interface NotesModel {
+    id: number;
+    userId: string | null;
+    items: NotesItemModel[];
+}
+
+export interface NotesItemModel {
+    id: number;
+    content: string | null;
+    order: number;
+}
+
 export interface PortfolioModel {
     equities: EquityModel[];
     id: number;

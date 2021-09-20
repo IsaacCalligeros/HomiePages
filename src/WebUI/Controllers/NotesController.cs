@@ -22,19 +22,17 @@ namespace HomiePages.WebUI.Controllers
     public class NotesController : ApiControllerBase
     {
         private readonly INotesService _notesService;
-        public NotesController(
-            INotesService notesService
-            )
+        public NotesController(INotesService notesService)
         {
             _notesService = notesService;
         }
 
         [HttpPut]
         [Route("FindOrCreate/{containerId}")]
-        public Notes FindOrCreate(long containerId)
+        public NotesModel FindOrCreate(long containerId)
         {
             var notes = _notesService.FindOrCreate(containerId);
-            return notes;
+            return new NotesModel(notes);
         }
 
         [HttpDelete]

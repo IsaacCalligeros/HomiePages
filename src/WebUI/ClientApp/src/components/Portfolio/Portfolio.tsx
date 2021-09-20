@@ -5,6 +5,7 @@ import { Button, Tab, Tabs } from "@material-ui/core";
 import { EquityList } from "../Equities/list";
 import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { observer } from "mobx-react";
 
 interface PortfolioProps {
   containerId: number;
@@ -16,17 +17,13 @@ interface TabPanelProps {
   value: any;
 }
 
-const PortfolioComponent = (props: PortfolioProps) => {
+const PortfolioComponent = observer((props: PortfolioProps) => {
   const [portfolioStore] = useState(new PortfolioStore(props.containerId));
   const [value, setValue] = React.useState(0);
 
   const tabChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
   };
-
-  useEffect(() => {
-
-  }, [portfolioStore.portfolio.equities]);
 
   const TabPanel = (props: TabPanelProps) => {
     const { children, value, index, ...other } = props;
@@ -97,7 +94,7 @@ const PortfolioComponent = (props: PortfolioProps) => {
       </TabPanel>
     </>
   );
-};
+});
 
 export { PortfolioComponent };
 

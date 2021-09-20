@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Authentication.Facebook;
 
 namespace HomiePages.Infrastructure
 {
@@ -61,12 +62,21 @@ namespace HomiePages.Infrastructure
                 })
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
 
             services.AddAuthentication()
-                .AddIdentityServerJwt();
+                .AddIdentityServerJwt()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = configuration["Authentication:Facebook:AppId"];
+                    facebookOptions.AppSecret = configuration["Authentication:Facebook:AppSecret"];
+                })
+                .AddGoogle(options =>
+                {
+                    options.ClientId = configuration["Authentication:Google:AppId"];
+                    options.ClientSecret = configuration["Authentication:Google:AppSecret"];
+                });
 
             services.AddAuthorization(options =>
             {

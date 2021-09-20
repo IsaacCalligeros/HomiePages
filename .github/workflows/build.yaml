@@ -37,6 +37,10 @@ jobs:
         ConnectionStrings.DefaultConnection: ${{ secrets.POSTGRESQL_CONNECTION_STRING }}
         AdminPassword: ${{ secrets.ADMIN_PASSWORD }}
         IdentityServer.Key.Password: ${{secrets.IDENTITYSERVER_CERT_PASSWORD}}
+        Authentication.Facebook.AppId: ${{secrets.FACEBOOK_APPID}}
+        Authentication.Facebook.AppSecret: ${{secrets.FACEBOOK_APPSECRET}}
+        Authentication.Google.AppId: ${{secrets.GOOGLE_APPID}}
+        Authentication.Google.AppSecret: ${{secrets.GOOGLE_APPSECRET}}
     - name: Push to Linode
       run: |
           echo "$ssh_key" > ~/ssh_key

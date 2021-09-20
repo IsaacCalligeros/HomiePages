@@ -1,11 +1,18 @@
 import { AxiosResponse } from "axios";
 import axiosInstance from "../../axiosInstance";
-import { Notes } from "../../models/models";
+import { NoteItem, Notes } from "../../models/models";
 
 export class NotesService {
-    FindOrCreate = async (containerId: number) => {
+    private containerId: number;
+
+    constructor(containerId: number)
+    {
+        this.containerId = containerId;
+    }
+
+    FindOrCreate = async () => {
         const res: Notes = await (
-            await axiosInstance.put(`api/Notes/FindOrCreate/${containerId}`)
+            await axiosInstance.put(`api/Notes/FindOrCreate/${this.containerId}`)
         ).data;
         return res;
     };

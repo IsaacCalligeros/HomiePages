@@ -3,23 +3,30 @@ import axiosInstance from "../../axiosInstance";
 import { NoteItem, Notes } from "../../models/models";
 
 export class NotesItemService {
-    AddItem = async (containerId: number, noteItem: NoteItem) => {
+    private containerId: number;
+
+    constructor(containerId: number)
+    {
+      this.containerId = containerId;
+    }
+
+    AddItem = async (noteItem: NoteItem) => {
         const res: Notes = await (
-          await axiosInstance.post(`api/NoteItem/Add/${containerId}`, { noteItem })
+          await axiosInstance.post(`api/NoteItem/Add/${this.containerId}`, { noteItem })
         ).data;
         return res;
       };
 
-    UpdateOrder = async (containerId: number, noteItems: NoteItem[]) => {
+    UpdateOrder = async (noteItems: NoteItem[]) => {
         const res: Notes = await (
-          await axiosInstance.post(`api/NoteItem/UpdateNotesOrder/${containerId}`, noteItems)
+          await axiosInstance.post(`api/NoteItem/UpdateNotesOrder/${this.containerId}`, noteItems)
         ).data;
         return res;
       };
 
-    Update = async (containerId: number, toDoItem: NoteItem) => {
+    Update = async (toDoItem: NoteItem) => {
         const res: NoteItem = await (
-          await axiosInstance.post(`api/NoteItem/Update/${containerId}`, toDoItem)
+          await axiosInstance.post(`api/NoteItem/Update/${this.containerId}`, toDoItem)
         ).data;
     
         return res;

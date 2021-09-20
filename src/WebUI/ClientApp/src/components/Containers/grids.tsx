@@ -12,7 +12,8 @@ import { ContainersStore } from "../../store/containersStore";
 import { observer } from "mobx-react";
 import { PortfolioComponent } from "../Portfolio/Portfolio";
 import { ToDoComponent } from "../Todo/ToDo";
-import { Notes } from "../notes/notes";
+import { NotesComponent } from "../notes/notes";
+import { useGlobalStore } from "../../store/hooks/globalStoreHook";
 // import { containersStoreContext } from "../../store/containerStoreContext";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -25,11 +26,12 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
   const layouts = {
     lg: props.containersStore.containers,
   };
+  const globalStore = useGlobalStore();
 
   const defaultProps = {
     className: "layout",
     rowHeight: 30,
-    onLayoutChange: function () {},
+    onLayoutChange: function () { },
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
   };
 
@@ -75,20 +77,21 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
           key={l.layout?.i}
           className="control-container"
           data-grid={l.layout}
+          style={{display: 'flex', flexDirection: 'column'}}
         >
-          <div className="container-controls">
-            <div className="drag-handle centered">
-              <FontAwesomeIcon icon={faArrowsAlt} />
+          {globalStore.editMode && 
+            <div className="container-header" style={{width: '100%', height: '2em'}}>
+              <div className="container-controls">
+                  <FontAwesomeIcon icon={faArrowsAlt} className="drag-handle centered" />
+                  <FontAwesomeIcon icon={faTimes} className="delete-container centered" onClick={() => onRemoveItem(l.layout?.i)} />
+              </div>
             </div>
-            <button className="remove centered" onClick={() => onRemoveItem(l.layout?.i)}>
-              <FontAwesomeIcon icon={faTimes} />
-            </button>
-          </div>
-            {l.componentType === ComponentType.Weather && <Weather></Weather>}
-            {l.componentType === ComponentType.News && <News></News>}
-            {l.componentType === ComponentType.Portfolio && (<PortfolioComponent containerId={l.containerId}></PortfolioComponent>)}
-            {l.componentType === ComponentType.ToDo && (<ToDoComponent containerId={l.containerId}></ToDoComponent>)}
-            {l.componentType === ComponentType.Notes && <Notes containerId={l.containerId}/>}
+          }
+          {l.componentType === ComponentType.Weather && <Weather></Weather>}
+          {l.componentType === ComponentType.News && <News></News>}
+          {l.componentType === ComponentType.Portfolio && <PortfolioComponent containerId={l.containerId}></PortfolioComponent>}
+          {l.componentType === ComponentType.ToDo && <ToDoComponent containerId={l.containerId}></ToDoComponent>}
+          {l.componentType === ComponentType.Notes && <NotesComponent containerId={l.containerId} />}
         </div>
       );
     });
@@ -99,8 +102,7 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
       <ResponsiveReactGridLayout
         {...defaultProps}
         onBreakpointChange={() => onBreakpointChange}
-        onResizeStop={(layouts, oldLayout, updatedLayout) =>
-        {
+        onResizeStop={(layouts, oldLayout, updatedLayout) => {
           props.containersStore.updateLayout(updatedLayout);
         }}
         onDragStop={(layouts, oldLayout, updatedLayout) => props.containersStore.updateLayout(updatedLayout)}
@@ -114,7 +116,7 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
         isDroppable={true}
       >
         {/* <containersStoreContext.Provider value={containerStoreRef}> */}
-          {generateDOM()}
+        {generateDOM()}
         {/* </containersStoreContext.Provider> */}
       </ResponsiveReactGridLayout>
     </div>

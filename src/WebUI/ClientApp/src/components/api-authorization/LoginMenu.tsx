@@ -6,6 +6,7 @@ import { ApplicationPaths } from "./ApiAuthorizationConstants";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { UserIcon } from "../account/user-icon";
 
 const LoginMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -55,7 +56,7 @@ const LoginMenu = () => {
           aria-haspopup="true"
           onClick={handleClick}
         >
-          {userName}
+          <UserIcon userName={userName} />
         </Button>
         <Menu
           id="simple-menu"

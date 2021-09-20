@@ -1,9 +1,11 @@
 //https://medium.com/@katiemctigue/how-to-create-a-dark-mode-in-sass-609f131a3995
 
+$white: white;
 //Light theme
 $light-primary: #EAE7DC;
 $light-secondary: #D8C3A5;
 $light-tertiary: #8E8D8A;
+$light-card: #ebecf0;
 $light-soft: #E98074;
 $light-accent: #E85A4F;
 $light-text: black;
@@ -24,6 +26,7 @@ $light-darken-accent: darken($light-accent, 10%);
 $dark-primary: #25274D;
 $dark-secondary: #464866;
 $dark-tertiary: #AAABB8;
+$dark-card: #ebecf0;
 $dark-accent: #2E9CCA;
 $dark-soft: #29648A;
 $dark-text: white;
@@ -40,18 +43,23 @@ $dark-darken-tertiary: darken($dark-tertiary, 10%);
 $dark-darken-soft: darken($dark-soft, 10%);
 $dark-darken-accent: darken($dark-accent, 10%);
 
-$bg--light: $light-primary;
+//Themes
+
+$bg--light: $white;
 $bg--card--light: $light-secondary;
 $text--light: $light-text;
 $hover--light: $light-soft;
 $border--light: $light-tertiary;
+$accent--light: $light-accent;
 
 $bg--dark: $dark-primary;
 $bg--card--dark: $dark-secondary;
 $text--dark: $dark-text;
 $hover--dark: $dark-soft;
-$border--dark:$dark-tertiary;
+$border--dark: $dark-tertiary;
+$accent--dark: $dark-accent;
 
+$accent: 'accent';
 $bg: 'bg';
 $card-bg: 'card-bg';
 $card-border: 'card-border';
@@ -61,6 +69,7 @@ $text-secondary: 'text-secondary';
 $text-badge: 'text-badge';
 $link: 'link';
 $hover: 'hover';
+$header: 'header';
 $logo: 'logo';
 $logo2: 'logo-2';
 $brand-secondary: 'brand-blue';
@@ -74,14 +83,18 @@ $themes: (
                 card-bg: $bg--card--light,
                 text: $text--light,
                 hover: $hover--light,
-                border: $border--light
+                border: $border--light,
+                accent: $accent--light,
+                header: $light-lighten-tertiary
         ),
         dark: (
                 bg: $bg--dark,
                 card-bg: $bg--card--dark,
                 text: $text--dark,
                 hover: $hover--dark,
-                border: $border--dark
+                border: $border--dark,
+                accent: $accent--dark,
+                header: $dark-lighten-tertiary,
         ),
 );
 

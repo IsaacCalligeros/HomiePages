@@ -1,3 +1,11 @@
+@import "./_color-themes";
+
 .droppable-element {
     // color: red;
+}
+
+.sidebar {
+    @include themed() {
+        color: t($bg);
+      }
 }

@@ -12,6 +12,21 @@ a.navbar-brand {
   }
 }
 
+.collapseMenu {
+  // @include themed() {
+  //   background: t($bg);
+  // }
+
+  margin-left: auto;
+  width: auto !important;
+  align-items: center;
+
+  &.mobile {
+    flex-grow: revert;
+    flex-basis: revert;
+  }
+}
+
 html {
   font-size: 14px;
 }
@@ -22,5 +37,5 @@ html {
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
 }
