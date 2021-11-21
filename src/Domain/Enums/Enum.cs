@@ -26,6 +26,7 @@ namespace HomiePages.Domain.Enums
             Portfolio,
             ToDo,
             Notes,
+            Strava
         }
     }
 }

@@ -40,7 +40,6 @@ namespace HomiePages.WebUI.Controllers
         public ActionResult CreatePortfolio(Portfolio portfolio)
         {
             portfolio.UserId = UserId;
-
             var addRes = _portfolioService.CreatePortfolio(portfolio);
             var dbPortfolio = _portfolioService.GetPortfolio(p => p.UserId == UserId);
             return Ok(new PortfolioModel(dbPortfolio));

@@ -6,7 +6,6 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -43,6 +42,7 @@ namespace HomiePages.Infrastructure.Persistence
         public DbSet<ToDoType> ToDoTypes { get; set; }
         public DbSet<Notes> Notes { get; set; }
         public DbSet<NoteItem> NoteItems { get; set; }
+        public DbSet<AuthCode> AuthCodes { get; set; }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -65,6 +65,32 @@ namespace HomiePages.Infrastructure.Persistence
             var result = await base.SaveChangesAsync(cancellationToken);
 
             await DispatchEvents();
+
+            return result;
+        }
+
+
+        public override int SaveChanges()
+        {
+            foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<AuditableEntity> entry in ChangeTracker.Entries<AuditableEntity>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                        entry.Entity.CreatedBy = _currentUserService.UserId;
+                        entry.Entity.Created = _dateTime.Now;
+                        break;
+
+                    case EntityState.Modified:
+                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
+                        entry.Entity.LastModified = _dateTime.Now;
+                        break;
+                }
+            }
+
+            var result = base.SaveChanges();
+
+            Task.Run(() => DispatchEvents()).GetAwaiter().GetResult();
 
             return result;
         }

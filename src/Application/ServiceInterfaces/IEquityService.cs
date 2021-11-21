@@ -12,7 +12,5 @@ namespace HomiePages.Application.ServiceInterfaces
         public Task<bool> AddEquity(string userId, Equity equity);
 
         public Task<bool> DeleteEquity(int equityId, string userId);
-
-        public List<Company> GetASXCompanies(string searchTerm);
     }
 }

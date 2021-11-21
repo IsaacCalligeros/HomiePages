@@ -34,6 +34,7 @@ namespace HomiePages.Infrastructure
             }
 
             services.AddScoped<IContainerService, ContainerService>();
+            services.AddScoped<IAuthCodeService, AuthCodeService>();
             services.AddScoped<IEquityService, EquityService>();
             services.AddScoped<IPortfolioService, PortfolioService>();
             services.AddScoped<IToDoService, ToDoService>();

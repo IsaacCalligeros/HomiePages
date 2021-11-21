@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Company, EquityModel } from "../../models/models";
+import { EquityModel, SearchResponse } from "../../models/models";
 import TextField from "@material-ui/core/TextField";
 import "../../CSS/news.scss";
 import { EquityService } from "../../services/EquityService";
@@ -23,7 +23,7 @@ interface EquityListProps {
 const EquityList = (props: EquityListProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [asxCompanies, setAsxCompanies] = useState<Company[] | undefined>(undefined);
+  const [asxCompanies, setAsxCompanies] = useState<SearchResponse[] | null>(null);
   
   const equityService = new EquityService();
 
@@ -32,14 +32,14 @@ const EquityList = (props: EquityListProps) => {
   );
 
   useEffect(() => {
-    equityService.getCompanies(searchTerm).then((res) => {
+    equityService.Search(searchTerm).then((res) => {
       setAsxCompanies(res);
     });
   }, [searchTerm, equityService]);
 
-  const mapToEquity = (company: Company): EquityModel => {
+  const mapToEquity = (company: SearchResponse): EquityModel => {
     var equity = defaultEquity;
-    equity.ticker = company.ticker;
+    equity.ticker = company.symbol;
     return equity;
   };
 
@@ -69,13 +69,14 @@ const EquityList = (props: EquityListProps) => {
           </tr>
         </thead>
         <tbody>
-          {asxCompanies?.map((company, idx) => (
+
+          {asxCompanies && asxCompanies?.map((company, idx) => (
             <tr key={idx}>
-              {/* TODO: change jsonAttribute */}
-              <td>{company.Company}</td>
-              <td>{company.industry}</td>
-              <td>{company.ticker}</td>
-              <td>{company.listingDate}</td>
+              <td>{company.symbol}</td>
+              <td>{company.exchange}</td>
+              <td>{company.region}</td>
+              <td>{company.securityName}</td>
+              <td>{company.securityType}</td>
               <td>
                 <Button
                   onClick={() => {

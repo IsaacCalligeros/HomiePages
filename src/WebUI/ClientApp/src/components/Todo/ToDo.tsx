@@ -27,15 +27,16 @@ const ToDoComponent = observer((props: ToDoProps) => {
 
   return (
     <div className="to-do-container">
-      <Button
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={() => newToDoItem()}
-      >
-        <FontAwesomeIcon icon={faPlus} />
-      </Button>
       {store.toDo.items
         && <ToDoList store={store} />}
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={() => newToDoItem()}
+        >
+        <FontAwesomeIcon icon={faPlus} />
+        &nbsp;Add an item
+      </Button>
     </div>
   );
 });

@@ -1,25 +1,8 @@
 import { AxiosResponse } from "axios";
 import axiosInstance from "../axiosInstance";
-import { Company, EquityModel, Quote } from "../models/models";
+import { EquityModel, Quote, SearchResponse } from "../models/models";
 
 export class EquityService {
-  getCompanies = (searchTerm: string): Promise<Company[]> => {
-    return new Promise<Company[]>((resolve, reject) => {
-      axiosInstance
-        .get("api/equity/GetAsxCompanies", {
-          params: {
-            searchTerm: searchTerm,
-          },
-        })
-        .then((response: AxiosResponse<Company[]>) => {
-          resolve(response.data);
-        })
-        .catch(() => {
-          reject();
-        });
-    });
-  };
-
   getCompanyFinancials = (ticker: string): Promise<Quote> => {
     return new Promise<Quote>((resolve, reject) => {
       axiosInstance
@@ -36,6 +19,17 @@ export class EquityService {
         });
     });
   };
+
+  Search = async (fragment: string) => {
+    if (fragment === '')
+    {
+      return [];
+    }
+    
+    const res : SearchResponse[] = await (await axiosInstance
+      .get(`api/Equity/search/${fragment}`)).data;
+    return res;
+  }
 
   AddEquity = async (equity: EquityModel) => {
     const res : boolean = await (await axiosInstance

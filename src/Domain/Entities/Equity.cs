@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using static HomiePages.Domain.Enums.Enums;
+﻿using static HomiePages.Domain.Enums.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using HomiePages.Domain.Common;

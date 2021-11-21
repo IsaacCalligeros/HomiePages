@@ -20,7 +20,10 @@ namespace HomiePages.Application.Common.Interfaces
 
         DbSet<Notes> Notes { get; set; }
         DbSet<NoteItem> NoteItems { get; set; }
+        DbSet<AuthCode> AuthCodes { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+
+        int SaveChanges();
     }
 }

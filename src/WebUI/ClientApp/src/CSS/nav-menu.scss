@@ -8,22 +8,22 @@ a.navbar-brand {
 
 .navbar {
   @include themed() {
-    background: t($bg);
+    background: t($accent);
   }
+  padding: 0;
 }
 
 .collapseMenu {
-  // @include themed() {
-  //   background: t($bg);
-  // }
+  @include themed() {
+    background: t($accent);
+  }
 
   margin-left: auto;
   width: auto !important;
   align-items: center;
 
   &.mobile {
-    flex-grow: revert;
-    flex-basis: revert;
+
   }
 }
 

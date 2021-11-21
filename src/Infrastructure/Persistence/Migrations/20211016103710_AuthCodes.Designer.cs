@@ -3,15 +3,17 @@ using System;
 using HomiePages.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HomiePages.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211016103710_AuthCodes")]
+    partial class AuthCodes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +27,6 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityByDefaultColumn();
-
-                    b.Property<string>("Code")
-                        .HasColumnType("text");
 
                     b.Property<DateTime?>("Created")
                         .HasColumnType("timestamp without time zone");
@@ -48,6 +47,9 @@ namespace HomiePages.Infrastructure.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("code")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

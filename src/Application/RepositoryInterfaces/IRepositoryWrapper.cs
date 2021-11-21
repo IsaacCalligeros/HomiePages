@@ -17,6 +17,7 @@ namespace HomiePages.Application.RepositoryInterfaces
         IToDoItemRepository ToDoItems { get; }
         INotesRepository Notes { get; }
         INotesItemRepository NoteItems { get; }
+        IAuthCodeRepository AuthCodes { get; }
 
         Task<bool> SaveAsync(string savingEntity);
         Task<bool> SaveAsync();

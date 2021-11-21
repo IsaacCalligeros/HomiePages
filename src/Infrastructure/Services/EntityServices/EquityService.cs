@@ -53,25 +53,5 @@ namespace HomiePages.Infrastructure.Services.EntityServices
             var res = await _repo.SaveAsync();
             return res;
         }
-
-        public List<Company> GetASXCompanies(string searchTerm)
-        {
-            var resourceName = "HomiePages.Infrastructure.Resources.companies-asx.json";
-            var assembly = Assembly.GetExecutingAssembly();
-            List<Company> companies = new List<Company>();
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                string result = reader.ReadToEnd();
-                companies = JsonConvert.DeserializeObject<List<Company>>(result);
-            }
-            if (searchTerm != null)
-            {
-                companies = SearchHelper.ContainsSearch<Company>(companies, searchTerm);
-            }
-
-            return companies.Take(10).ToList();
-        }
     }
 }

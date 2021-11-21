@@ -6,6 +6,7 @@ using HomiePages.Application.ServiceInterfaces;
 using HomiePages.Domain.Entities;
 using IEXSharp;
 using IEXSharp.Model;
+using IEXSharp.Model.CoreData.ReferenceData.Response;
 using IEXSharp.Model.Shared.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -45,11 +46,16 @@ namespace HomiePages.WebUI.Controllers
             return Ok(addRes);
         }
 
-        [HttpGet]
-        [Route("GetAsxCompanies")]
-        public List<Company> GetAsxCompanies(string searchTerm)
+        [HttpGet("Search/{fragment}")]
+        public async Task<IEnumerable<SearchResponse>> Search(string fragment)
         {
-            return _equityService.GetASXCompanies(searchTerm);
+            using (var iexCloudClient =
+                new IEXCloudClient(_config["iexPublic"], _config["iexPrivate"], signRequest: false, useSandBox: false))
+            {
+
+                var res = await iexCloudClient.ReferenceData.SearchAsync(fragment);
+                return res.Data;
+            }
         }
 
         [HttpGet("GetCompany")]

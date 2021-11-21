@@ -1,15 +1,17 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useRef } from 'react';
 import '../../CSS/ToDo.scss';
 import { observer } from 'mobx-react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize/TextareaAutosize';
 import { IconButton } from '@material-ui/core';
-import { faCheck, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCheckCircle, faCircle, faCircleNotch, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ToDoItemModel } from '../../models/models';
 import { ToDoStore } from './ToDoStore';
+import { useHoverDirty } from 'react-use';
+import { createRef } from 'react';
 
 interface ToDoListProps {
   store: ToDoStore;
@@ -23,28 +25,33 @@ interface ToDoItemProps {
   index: number;
 }
 
-const SortableItem = SortableElement((props: ToDoItemProps) => (
-  <li key={`sortable-list-item-${props.item.id}`} className="todo-item">
-    <TextareaAutosize
-      key={`sortable-item-input-${props.item.id}`}
-      id={`sortable-item-input-${props.item.id}`}
-      style={{ resize: 'none' }}
-      placeholder="make a task"
-      value={props.item.toDoText || ''}
-      onChange={(e) => props.updateItem(props.item, e.target.value)}
-    />
-    <IconButton
+const SortableItem = SortableElement((props: ToDoItemProps) => {
+  const itemRef = createRef<HTMLDivElement>();
+  const hoverState = useHoverDirty(itemRef);
+
+  return (<li key={`sortable-list-item-${props.item.id}`} className="todo-item">
+    <div ref={itemRef}>
+      <IconButton
       className="sizeSmall"
       aria-controls="simple-menu"
       aria-haspopup="true"
       onClick={() => props.deleteItem(props.item.id)}
     >
       <FontAwesomeIcon
-        icon={faCheck}
+        icon={hoverState ? faCheckCircle : faCircle}
         size="xs"
         onClick={() => props.completeItem({ ...props.item, completionDate: new Date() })}
       />
     </IconButton>
+    </div>
+    <TextareaAutosize
+      key={`sortable-item-input-${props.item.id}`}
+      id={`sortable-item-input-${props.item.id}`}
+      style={{ resize: 'none', width: '100%' }}
+      placeholder="make a task"
+      value={props.item.toDoText || ''}
+      onChange={(e) => props.updateItem(props.item, e.target.value)}
+    />
     <IconButton
       className="sizeSmall"
       aria-controls="simple-menu"
@@ -57,8 +64,8 @@ const SortableItem = SortableElement((props: ToDoItemProps) => (
         onClick={() => props.deleteItem(props.item.id)}
       />
     </IconButton>
-  </li>
-));
+  </li>)}
+  );
 
 const ToDoItem = (props: ToDoItemProps) => (
   <SortableItem key={`sortable-item-container${props.index}`} {...props} />
@@ -76,7 +83,7 @@ const SortableList = SortableContainer(
     deleteItem: (itemId: number) => void;
     completeItem: (item: ToDoItemModel) => void;
   }) => (
-    <ul>
+    <ul style={{ padding: 0 }}>
       {items.map((value: ToDoItemModel, index: number) => (
         <ToDoItem
           index={index}

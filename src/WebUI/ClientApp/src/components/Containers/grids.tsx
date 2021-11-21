@@ -14,6 +14,7 @@ import { PortfolioComponent } from "../Portfolio/Portfolio";
 import { ToDoComponent } from "../Todo/ToDo";
 import { NotesComponent } from "../notes/notes";
 import { useGlobalStore } from "../../store/hooks/globalStoreHook";
+import { Strava } from "../Strava/strava";
 // import { containersStoreContext } from "../../store/containerStoreContext";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -87,11 +88,12 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
               </div>
             </div>
           }
-          {l.componentType === ComponentType.Weather && <Weather></Weather>}
-          {l.componentType === ComponentType.News && <News></News>}
-          {l.componentType === ComponentType.Portfolio && <PortfolioComponent containerId={l.containerId}></PortfolioComponent>}
-          {l.componentType === ComponentType.ToDo && <ToDoComponent containerId={l.containerId}></ToDoComponent>}
-          {l.componentType === ComponentType.Notes && <NotesComponent containerId={l.containerId} />}
+            {l.componentType === ComponentType.Weather && <Weather></Weather>}
+            {l.componentType === ComponentType.News && <News></News>}
+            {l.componentType === ComponentType.Portfolio && <PortfolioComponent containerId={l.containerId}></PortfolioComponent>}
+            {l.componentType === ComponentType.ToDo && <ToDoComponent containerId={l.containerId}></ToDoComponent>}
+            {l.componentType === ComponentType.Notes && <NotesComponent containerId={l.containerId} />}
+            {l.componentType === ComponentType.Strava && <Strava containerId={l.containerId} />}
         </div>
       );
     });
@@ -116,7 +118,7 @@ const DragFromOutsideLayout = observer((props: DragFromOutsideLayoutProps) => {
         isDroppable={true}
       >
         {/* <containersStoreContext.Provider value={containerStoreRef}> */}
-        {generateDOM()}
+          {generateDOM()}
         {/* </containersStoreContext.Provider> */}
       </ResponsiveReactGridLayout>
     </div>

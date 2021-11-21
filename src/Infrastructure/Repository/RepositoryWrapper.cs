@@ -20,6 +20,7 @@ namespace HomiePages.Infrastructure.Repository
         private IToDoItemRepository _toDoItems;
         private INotesRepository _notes;
         private INotesItemRepository _noteItems;
+        private IAuthCodeRepository _authCodes;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -156,6 +157,19 @@ namespace HomiePages.Infrastructure.Repository
                 }
 
                 return _noteItems;
+            }
+        }
+
+        public IAuthCodeRepository AuthCodes
+        {
+            get
+            {
+                if (_authCodes == null)
+                {
+                    _authCodes = new AuthCodeRepository(_dataContext);
+                }
+
+                return _authCodes;
             }
         }
 

@@ -31,6 +31,7 @@ export enum ComponentType {
     Portfolio = 2,
     ToDo = 3,
     Notes = 4,
+    Strava = 5,
 }
 
 export interface AuditableEntity {
@@ -55,11 +56,12 @@ export enum EquityType {
     Cryptocurrency = 1,
 }
 
-export interface Company {
-    ticker: string | null;
-    Company: string | null;
-    listingDate: Date | null;
-    industry: string | null;
+export interface SearchResponse {
+    symbol: string | null;
+    securityName: string | null;
+    securityType: string | null;
+    region: string | null;
+    exchange: string | null;
 }
 
 export interface Quote {
@@ -354,13 +356,6 @@ export interface CityDetails {
 export interface Coord2 {
     lat: number;
     lon: number;
-}
-
-export interface WeatherForecast {
-    date: Date;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string | null;
 }
 
 export interface FileResponse {
