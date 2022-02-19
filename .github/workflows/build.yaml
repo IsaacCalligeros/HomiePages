@@ -89,14 +89,14 @@ jobs:
         server: ${{ secrets.OCTOPUSSERVERURL }}
         space: ${{ secrets.OCTOPUSSERVER_SPACE }}
         project: "HomiePages"
-        deploy_to: "Development"
+        deploy_to: "Production"
         progress: true
     
     - name: Run a runbook in octopus deploy
       uses: OctopusDeploy/run-runbook-action@1.0.1
       with:
         api_key: ${{ secrets.OCTOPUSSERVERAPIKEY }}
-        environments: 'Development'
+        environments: 'Production'
         project: 'HomiePages'
         runbook: 'Deploy HomiePages'
         server: ${{ secrets.OCTOPUSSERVERURL }}
