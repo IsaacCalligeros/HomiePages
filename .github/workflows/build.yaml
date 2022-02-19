@@ -41,13 +41,64 @@ jobs:
         Authentication.Facebook.AppSecret: ${{secrets.FACEBOOK_APPSECRET}}
         Authentication.Google.AppId: ${{secrets.GOOGLE_APPID}}
         Authentication.Google.AppSecret: ${{secrets.GOOGLE_APPSECRET}}
-    - name: Push to Linode
+    - name: Create artifacts folder
       run: |
-          echo "$ssh_key" > ~/ssh_key
-          chmod 600 ~/ssh_key
-          rsync -e "ssh -v -i ~/ssh_key -o StrictHostKeyChecking=no" -avzr ./src/WebUI/bin/Release/net5.0/* "$user"@"$target_ip":/var/homiepages/api
-          rsync -e "ssh -v -i ~/ssh_key -o StrictHostKeyChecking=no" -avzr ./src/WebUI/ClientApp "$user"@"$target_ip":/var/homiepages/api
-      env:
-        ssh_key: ${{ secrets.CICD_SSH }}
-        user: ${{ secrets.CICD_USER }}
-        target_ip: ${{ secrets.LINODE_IP }}
+        mkdir "$GITHUB_WORKSPACE/artifacts"
+        mkdir "$GITHUB_WORKSPACE/artifacts/Infrastructure"
+        mkdir "$GITHUB_WORKSPACE/artifacts/Application"
+        mkdir "$GITHUB_WORKSPACE/artifacts/Domain"
+        mkdir "$GITHUB_WORKSPACE/artifacts/WebUI"
+    - name: Publish Infrastructure
+      run: dotnet publish src/Infrastructure.csproj --configuration Release --no-restore --output "$GITHUB_WORKSPACE/artifacts/Infrastructure"
+    - name: Publish Application
+      run: dotnet publish src/Application.csproj --configuration Release --no-restore --output "$GITHUB_WORKSPACE/artifacts/Application"
+    - name: Publish Domain
+      run: dotnet publish src/Domain.csproj --configuration Release --no-restore --output "$GITHUB_WORKSPACE/artifacts/Domain"
+    - name: Publish WebUI
+      run: dotnet publish src/WebUI.csproj --configuration Release --no-restore --output "$GITHUB_WORKSPACE/artifacts/WebUI"
+
+    - name: Install Octopus CLI
+      uses: OctopusDeploy/install-octopus-cli-action@v1.1.8
+      with:
+        version: latest
+    - name: Package Infrastructure
+      run: |
+        octo pack --id="Infrastructure" --format="Zip" --version="$PACKAGE_VERSION" --basePath="$GITHUB_WORKSPACE/artifacts/Infrastructure" --outFolder="$GITHUB_WORKSPACE/artifacts"
+    - name: Package Application
+      run: |
+        octo pack --id="Application" --format="Zip" --version="$PACKAGE_VERSION" --basePath="$GITHUB_WORKSPACE/artifacts/Application" --outFolder="$GITHUB_WORKSPACE/artifacts"
+    - name: Package Domain
+      run: |
+        octo pack --id="Domain" --format="Zip" --version="$PACKAGE_VERSION" --basePath="$GITHUB_WORKSPACE/artifacts/Domain" --outFolder="$GITHUB_WORKSPACE/artifacts"
+    - name: Package WebUI
+      run: |
+        octo pack --id="WebUI" --format="Zip" --version="$PACKAGE_VERSION" --basePath="$GITHUB_WORKSPACE/artifacts/WebUI" --outFolder="$GITHUB_WORKSPACE/artifacts"
+    
+    - name: Push HomiePages packages
+      uses: OctopusDeploy/push-package-action@v1.1.1
+      with:
+        api_key: ${{ secrets.OCTOPUSSERVERAPIKEY }}
+        server: ${{ secrets.OCTOPUSSERVERURL }}
+        packages: "artifacts/Infrastructure.${{ env.PACKAGE_VERSION }}.zip,artifacts/Application.${{ env.PACKAGE_VERSION }}.zip,artifacts/Domain.${{ env.PACKAGE_VERSION }}.zip,artifacts/WebUI.${{ env.PACKAGE_VERSION }}.zip"
+        space: ${{ secrets.OCTOPUSSERVER_SPACE }}
+
+    - name: Create and deploy release
+      uses: OctopusDeploy/create-release-action@v1.1.1
+      with:
+        api_key: ${{ secrets.OCTOPUSSERVERAPIKEY }}
+        server: ${{ secrets.OCTOPUSSERVERURL }}
+        space: ${{ secrets.OCTOPUSSERVER_SPACE }}
+        project: "HomiePages"
+        deploy_to: "Development"
+        progress: true
+    
+    - name: Run a runbook in octopus deploy
+      uses: OctopusDeploy/run-runbook-action@1.0.1
+      with:
+        api_key: ${{ secrets.OCTOPUSSERVERAPIKEY }}
+        environments: 'Development'
+        project: 'HomiePages'
+        runbook: 'Deploy HomiePages'
+        server: ${{ secrets.OCTOPUSSERVERURL }}
+        space: ${{ secrets.OCTOPUSSERVER_SPACE }}
+        show_progress: 'true'
