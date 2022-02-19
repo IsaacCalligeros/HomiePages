@@ -75,7 +75,7 @@ jobs:
         octo pack --id="WebUI" --format="Zip" --version="$PACKAGE_VERSION" --basePath="$GITHUB_WORKSPACE/artifacts/WebUI" --outFolder="$GITHUB_WORKSPACE/artifacts"
     
     - name: Push HomiePages packages
-      uses: OctopusDeploy/push-package-action@v1.1.1
+      uses: OctopusDeploy/push-package-action@v1.1.8
       with:
         api_key: ${{ secrets.OCTOPUSSERVERAPIKEY }}
         server: ${{ secrets.OCTOPUSSERVERURL }}
@@ -83,7 +83,7 @@ jobs:
         space: ${{ secrets.OCTOPUSSERVER_SPACE }}
 
     - name: Create and deploy release
-      uses: OctopusDeploy/create-release-action@v1.1.1
+      uses: OctopusDeploy/create-release-action@v1.1.8
       with:
         api_key: ${{ secrets.OCTOPUSSERVERAPIKEY }}
         server: ${{ secrets.OCTOPUSSERVERURL }}
@@ -93,7 +93,7 @@ jobs:
         progress: true
     
     - name: Run a runbook in octopus deploy
-      uses: OctopusDeploy/run-runbook-action@1.1.1
+      uses: OctopusDeploy/run-runbook-action@1.1.8
       with:
         api_key: ${{ secrets.OCTOPUSSERVERAPIKEY }}
         environments: 'Development'
